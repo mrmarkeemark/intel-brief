@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Daily Intelligence Brief — 28 APR 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #080c10;
+    --bg-card: #0e1520;
+    --bg-card2: #121c28;
+    --gold: #c9a84c;
+    --amber: #e8943a;
+    --red: #dc2626;
+    --blue: #3b82f6;
+    --teal: #14b8a6;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --purple: #a855f7;
+    --cyan: #2dd4bf;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --dim: #1e2d3d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 32px;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--dim);
+    padding: 14px 16px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .brief-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .brief-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .brief-date {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .status-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+  }
+
+  .pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .pill-red { background: rgba(220,38,38,0.2); color: var(--red); border: 1px solid rgba(220,38,38,0.4); }
+  .pill-amber { background: rgba(232,148,58,0.2); color: var(--amber); border: 1px solid rgba(232,148,58,0.4); }
+  .pill-gold { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.35); }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 2px;
+    padding: 0 2px;
+  }
+
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex: 1;
+    min-width: 72px;
+    padding: 7px 4px 6px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .tab-icon {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .tab-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+
+  .tab.active .tab-label { color: var(--text); }
+  .tab-morning.active { border-bottom-color: var(--gold); }
+  .tab-us.active { border-bottom-color: var(--red); }
+  .tab-world.active { border-bottom-color: var(--teal); }
+  .tab-me.active { border-bottom-color: var(--amber); }
+
+  /* ── SECTIONS ── */
+  .section { display: none; padding: 12px 14px; }
+  .section.active { display: block; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--dim);
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+
+  .section-time {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--dim);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .card-title-block { flex: 1; }
+
+  .card-category {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .card-toggle {
+    font-size: 10px;
+    color: var(--muted);
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .card.open .card-toggle { transform: rotate(180deg); }
+
+  .card-preview {
+    padding: 0 12px 10px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .card-body {
+    display: none;
+    padding: 0 12px 12px;
+    border-top: 1px solid var(--dim);
+    margin-top: 2px;
+    padding-top: 10px;
+  }
+
+  .card.open .card-body { display: block; }
+  .card.open .card-preview { display: none; }
+
+  /* ── LEFT BORDER COLOURS ── */
+  .border-gold { border-left: 3px solid var(--gold); }
+  .border-red { border-left: 3px solid var(--red); }
+  .border-amber { border-left: 3px solid var(--amber); }
+  .border-teal { border-left: 3px solid var(--teal); }
+  .border-blue { border-left: 3px solid var(--blue); }
+  .border-purple { border-left: 3px solid var(--purple); }
+  .border-cyan { border-left: 3px solid var(--cyan); }
+  .border-yellow { border-left: 3px solid var(--yellow); }
+
+  /* ── BULLETS ── */
+  .bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .bullets li {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+    padding-left: 13px;
+    position: relative;
+  }
+
+  .bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    font-size: 9px;
+    top: 3px;
+  }
+
+  .b-gold li::before { color: var(--gold); }
+  .b-red li::before { color: var(--red); }
+  .b-teal li::before { color: var(--teal); }
+  .b-blue li::before { color: var(--blue); }
+  .b-amber li::before { color: var(--amber); }
+  .b-cyan li::before { color: var(--cyan); }
+
+  .ld { font-weight: 600; }
+  .ld-gold { color: var(--gold); }
+  .ld-red { color: var(--red); }
+  .ld-amber { color: var(--amber); }
+  .ld-teal { color: var(--teal); }
+  .ld-blue { color: var(--blue); }
+  .ld-cyan { color: var(--cyan); }
+  .ld-purple { color: var(--purple); }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-left: 4px;
+    vertical-align: middle;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .badge-break { background: rgba(220,38,38,0.2); color: var(--red); border: 1px solid rgba(220,38,38,0.4); }
+  .badge-dev { background: rgba(232,148,58,0.2); color: var(--amber); border: 1px solid rgba(232,148,58,0.4); }
+  .badge-upd { background: rgba(45,212,191,0.15); color: var(--cyan); border: 1px solid rgba(45,212,191,0.35); }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .stat-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .stat {
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    padding: 8px 10px;
+  }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .stat-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .stat-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    margin-top: 1px;
+  }
+
+  .up { color: var(--green); }
+  .dn { color: var(--red); }
+  .warn { color: var(--amber); }
+  .neu { color: var(--text); }
+
+  /* ── ANALYSIS ── */
+  .analysis {
+    border-radius: 0 3px 3px 0;
+    padding: 8px 10px;
+    margin-top: 10px;
+  }
+
+  .analysis-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .analysis-text {
+    font-size: 12px;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .a-gold { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold); }
+  .a-gold .analysis-label { color: var(--gold); }
+  .a-red { background: rgba(220,38,38,0.06); border: 1px solid rgba(220,38,38,0.2); border-left: 3px solid var(--red); }
+  .a-red .analysis-label { color: var(--red); }
+  .a-teal { background: rgba(20,184,166,0.06); border: 1px solid rgba(20,184,166,0.2); border-left: 3px solid var(--teal); }
+  .a-teal .analysis-label { color: var(--teal); }
+
+  /* ── HEAT ROW ── */
+  .heat-list { display: flex; flex-direction: column; gap: 5px; }
+
+  .heat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+  }
+
+  .heat-name { font-size: 13px; font-weight: 500; }
+
+  .heat-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .hc { background: rgba(220,38,38,0.2); color: var(--red); border: 1px solid rgba(220,38,38,0.4); }
+  .hh { background: rgba(232,148,58,0.2); color: var(--amber); border: 1px solid rgba(232,148,58,0.4); }
+  .he { background: rgba(234,179,8,0.2); color: var(--yellow); border: 1px solid rgba(234,179,8,0.4); }
+  .hm { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+
+  /* ── GAUGE ── */
+  .gauge-list { display: flex; flex-direction: column; gap: 7px; }
+
+  .gauge {
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    padding: 8px 10px;
+  }
+
+  .gauge-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .gauge-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .gauge-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .gauge-track {
+    height: 6px;
+    background: var(--dim);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .gauge-fill { height: 100%; border-radius: 3px; }
+
+  /* ── ROUTE ── */
+  .route-list { display: flex; flex-direction: column; gap: 5px; }
+
+  .route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+  }
+
+  .route-info { flex: 1; }
+  .route-name { font-size: 13px; font-weight: 600; margin-bottom: 1px; }
+  .route-detail { font-size: 11px; color: var(--muted); }
+
+  .route-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  .rs-closed { background: rgba(220,38,38,0.2); color: var(--red); border: 1px solid rgba(220,38,38,0.4); }
+  .rs-danger { background: rgba(234,179,8,0.2); color: var(--yellow); border: 1px solid rgba(234,179,8,0.4); }
+  .rs-restrict { background: rgba(232,148,58,0.2); color: var(--amber); border: 1px solid rgba(232,148,58,0.4); }
+  .rs-reroute { background: rgba(59,130,246,0.2); color: var(--blue); border: 1px solid rgba(59,130,246,0.4); }
+  .rs-open { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+
+  /* ── WEATHER ── */
+  .weather-hero {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    margin-bottom: 8px;
+  }
+
+  .wx-temp {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .wx-details { display: flex; flex-direction: column; gap: 3px; }
+
+  .wx-cond {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .wx-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .wx-forecast {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  .wx-day {
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    padding: 7px 4px;
+    text-align: center;
+  }
+
+  .wx-day-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .wx-day-temp {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .wx-day-desc {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── SPORT ── */
+  .sport-match {
+    background: var(--bg-card2);
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    padding: 9px 12px;
+    margin-bottom: 6px;
+  }
+
+  .sport-comp {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .sport-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sport-team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .sport-score {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--dim); margin: 10px 0; }
+
+  /* ── CASUALTY ── */
+  .casualty-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .cas-item {
+    background: rgba(220,38,38,0.07);
+    border: 1px solid rgba(220,38,38,0.2);
+    border-radius: 3px;
+    padding: 8px 8px;
+    text-align: center;
+  }
+
+  .cas-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .cas-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .cas-sub {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── STATE MAP ── */
+  .state-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+    margin-bottom: 8px;
+  }
+
+  .state-box {
+    padding: 5px 3px;
+    text-align: center;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .sr { background: rgba(220,38,38,0.7); color: #fff; }
+  .lr { background: rgba(220,38,38,0.3); color: #fca5a5; border: 1px solid rgba(220,38,38,0.4); }
+  .to { background: rgba(234,179,8,0.3); color: #fde047; border: 1px solid rgba(234,179,8,0.5); }
+  .ld2 { background: rgba(59,130,246,0.3); color: #93c5fd; border: 1px solid rgba(59,130,246,0.4); }
+  .sd { background: rgba(59,130,246,0.7); color: #fff; }
+
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 1px;
+  }
+
+  /* ── FOOTER ── */
+  .brief-footer {
+    margin: 16px 14px 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--dim);
+  }
+
+  .footer-line {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 1.8;
+  }
+
+  .footer-line span { color: #475569; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     MASTHEAD
+════════════════════════════════ -->
+<div class="masthead">
+  <div class="masthead-top">
+    <div>
+      <div class="brief-label">▸ OSINT Daily Brief</div>
+      <div class="brief-title">Intelligence Report</div>
+      <div class="brief-date">TUE 28 APR 2026 · 05:00 AEST</div>
+    </div>
+    <div class="status-pills">
+      <span class="pill pill-red">RISK: HIGH</span>
+      <span class="pill pill-amber">STABILITY: LOW</span>
+      <span class="pill pill-gold">CONF: MEDIUM</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab tab-morning active" onclick="showTab('morning', this)">
+      <span class="tab-icon">🌅</span>
+      <span class="tab-label">Morning</span>
+    </div>
+    <div class="tab tab-us" onclick="showTab('us', this)">
+      <span class="tab-icon">🦅</span>
+      <span class="tab-label">US Politics</span>
+    </div>
+    <div class="tab tab-world" onclick="showTab('world', this)">
+      <span class="tab-icon">🌐</span>
+      <span class="tab-label">World</span>
+    </div>
+    <div class="tab tab-me" onclick="showTab('me', this)">
+      <span class="tab-icon">⚔️</span>
+      <span class="tab-label">Middle East</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     TAB 1: MORNING
+════════════════════════════════ -->
+<div id="tab-morning" class="section active">
+  <div class="section-header">
+    <span class="section-title" style="color: var(--gold);">Morning Brief</span>
+    <span class="section-time">SITUATIONAL AWARENESS</span>
+  </div>
+
+  <!-- GLOBAL HEADLINES -->
+  <div class="card border-gold open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--gold);">Global Headlines</div>
+        <div class="card-title">Top Stories — Last 24 Hrs</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-body">
+      <ul class="bullets b-gold">
+        <li><span class="ld ld-red">IRAN–US WAR DAY 59:</span> Iran submits revised proposal — reopen Strait of Hormuz without nuclear preconditions. Trump unlikely to accept; Rubio says nuclear issue non-negotiable. <span class="badge badge-break">BREAKING</span></li>
+        <li><span class="ld ld-gold">ARAGHCHI IN MOSCOW:</span> Iranian FM meets Putin seeking diplomatic backing as Pakistan talks stall. Russia co-vetoed UN Hormuz resolution with China.</li>
+        <li><span class="ld ld-red">WH CORRESPONDENTS' DINNER:</span> Shooting suspect in federal court today. Motive confirmed — targeting administration officials. DOJ using incident to pressure historic preservation lawsuit. <span class="badge badge-dev">DEVELOPING</span></li>
+        <li><span class="ld ld-gold">KING CHARLES STATE VISIT:</span> UK royals arrive in Washington for four-day visit. First since Iran war began.</li>
+        <li><span class="ld ld-amber">MEXICO:</span> President Sheinbaum authorises military operations against cartel leaders under US pressure.</li>
+        <li><span class="ld ld-amber">PAKISTAN:</span> General Munir elevated to field marshal — one year after India–Pakistan war. Regional posture remains tense.</li>
+      </ul>
+      <div class="analysis a-gold">
+        <div class="analysis-label">▸ Assessment</div>
+        <div class="analysis-text">Iran's nuclear decoupling offer signals negotiating flexibility but remains below Trump's stated terms. Escalation risk elevated until a credible deal framework emerges.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUSTRALIA -->
+  <div class="card border-teal">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--teal);">Australia / Brisbane</div>
+        <div class="card-title">Domestic News</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Port Arthur 30th anniversary · IS brides in Syria · Alice Springs search</div>
+    <div class="card-body">
+      <ul class="bullets b-teal">
+        <li><span class="ld ld-teal">PORT ARTHUR 30TH:</span> PM Albanese marks anniversary of 35 killed (28 Apr 1996). Statement praises National Firearms Agreement as defining national response.</li>
+        <li><span class="ld ld-amber">IS BRIDES IN SYRIA:</span> Pressure on federal government to repatriate 4 Australian women, 9 children reportedly en route to Damascus. Home Affairs maintains self-managed return policy.</li>
+        <li><span class="ld ld-teal">ALICE SPRINGS:</span> Search resumes for missing five-year-old girl near Alice Springs NT.</li>
+        <li><span class="ld ld-amber">AFL:</span> AFL still processing Carlton's Elijah Hollands report. No outcome announced.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- WEATHER -->
+  <div class="card border-amber">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--amber);">Brisbane Weather</div>
+        <div class="card-title">28 Apr — Partly Cloudy</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">High 24° · Low 17° · SE winds 15–20 km/h</div>
+    <div class="card-body">
+      <div class="weather-hero">
+        <div class="wx-temp">24°</div>
+        <div class="wx-details">
+          <div class="wx-cond">Partly Cloudy</div>
+          <div class="wx-meta">LOW 17° · HUMIDITY ~65%</div>
+          <div class="wx-meta">WIND: SE 15–20 KM/H</div>
+          <div class="wx-meta">UV: MODERATE · SUNRISE: 06:02</div>
+        </div>
+      </div>
+      <div class="wx-forecast">
+        <div class="wx-day">
+          <div class="wx-day-name">TUE</div>
+          <div class="wx-day-temp">24°</div>
+          <div class="wx-day-desc">Pt. Cloudy</div>
+        </div>
+        <div class="wx-day">
+          <div class="wx-day-name">WED</div>
+          <div class="wx-day-temp">24°</div>
+          <div class="wx-day-desc">Overcast</div>
+        </div>
+        <div class="wx-day">
+          <div class="wx-day-name">THU</div>
+          <div class="wx-day-temp">23°</div>
+          <div class="wx-day-desc">Showers</div>
+        </div>
+        <div class="wx-day">
+          <div class="wx-day-name">FRI</div>
+          <div class="wx-day-temp">22°</div>
+          <div class="wx-day-desc">Rain</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKETS -->
+  <div class="card border-gold">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--gold);">Markets</div>
+        <div class="card-title">Key Indicators</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">ASX 8,786 ▼ · Oil ~$96 ▲ · Intel +28% surge</div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">ASX 200</div>
+          <div class="stat-value neu">8,786</div>
+          <div class="stat-sub dn">▼ 4th consecutive loss</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">S&P 500</div>
+          <div class="stat-value neu">7,149</div>
+          <div class="stat-sub dn">▼ −0.22% · +29% YoY</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Brent Crude</div>
+          <div class="stat-value warn">~$96</div>
+          <div class="stat-sub warn">▲ Hormuz premium</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Gold</div>
+          <div class="stat-value up">$3,180</div>
+          <div class="stat-sub up">▲ War safe-haven</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">AUD/USD</div>
+          <div class="stat-value up">0.638</div>
+          <div class="stat-sub up">▲ RBA hike pricing</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Intel Corp</div>
+          <div class="stat-value up">+28%</div>
+          <div class="stat-sub up">▲ AI chip beat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPORT -->
+  <div class="card border-cyan">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--cyan);">Sport</div>
+        <div class="card-title">NRL Round 9 · AFL Round 7</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Broncos vs Roosters Sat night · Lions beat Crows</div>
+    <div class="card-body">
+      <div class="sport-match">
+        <div class="sport-comp">NRL — Round 9 · Anzac Round</div>
+        <div class="sport-teams">
+          <span class="sport-team-name" style="color:var(--amber);">Brisbane Broncos</span>
+          <span class="sport-score">SAT NIGHT</span>
+        </div>
+        <div class="sport-teams" style="margin-top:2px;">
+          <span class="sport-team-name" style="color:var(--muted);">Sydney Roosters</span>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);">ALLIANZ STADIUM</span>
+        </div>
+      </div>
+      <div class="sport-match">
+        <div class="sport-comp">AFL — Round 7 · Anzac Week</div>
+        <div class="sport-teams">
+          <span class="sport-team-name" style="color:var(--green);">Brisbane Lions</span>
+          <span class="sport-score">WIN</span>
+        </div>
+        <div class="sport-teams" style="margin-top:2px;">
+          <span class="sport-team-name" style="color:var(--muted);">Adelaide Crows</span>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);">GABBA · R7</span>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:4px;">Essendon vs Collingwood Anzac Day blockbuster drew record crowds. Geelong awaiting Blicavs injury scans.</div>
+    </div>
+  </div>
+
+  <!-- HEAT MAP -->
+  <div class="card border-red">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--red);">Global Instability</div>
+        <div class="card-title">Heat Map — Risk Assessment</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">3 Critical · 3 High · 3 Elevated</div>
+    <div class="card-body">
+      <div class="heat-list">
+        <div class="heat-item"><span class="heat-name">Strait of Hormuz / Iran</span><span class="heat-badge hc">CRITICAL</span></div>
+        <div class="heat-item"><span class="heat-name">Israel / Lebanon</span><span class="heat-badge hh">HIGH</span></div>
+        <div class="heat-item"><span class="heat-name">Gaza Strip</span><span class="heat-badge hh">HIGH</span></div>
+        <div class="heat-item"><span class="heat-name">Red Sea / Houthis</span><span class="heat-badge hh">HIGH</span></div>
+        <div class="heat-item"><span class="heat-name">Pakistan / India</span><span class="heat-badge he">ELEVATED</span></div>
+        <div class="heat-item"><span class="heat-name">Russia / Ukraine</span><span class="heat-badge he">ELEVATED</span></div>
+        <div class="heat-item"><span class="heat-name">US Domestic</span><span class="heat-badge he">ELEVATED</span></div>
+        <div class="heat-item"><span class="heat-name">Taiwan Strait</span><span class="heat-badge hm">MODERATE</span></div>
+        <div class="heat-item"><span class="heat-name">Mexico / Cartels</span><span class="heat-badge hm">MODERATE</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     TAB 2: US POLITICS
+════════════════════════════════ -->
+<div id="tab-us" class="section">
+  <div class="section-header">
+    <span class="section-title" style="color:var(--red);">US Politics</span>
+    <span class="section-time">POWER DYNAMICS</span>
+  </div>
+
+  <!-- TRUMP -->
+  <div class="card border-red open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--red);">Executive</div>
+        <div class="card-title">Trump Activity</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-body">
+      <ul class="bullets b-red">
+        <li><span class="ld ld-red">CORRESPONDENTS' DINNER:</span> Suspect in federal court — confirmed intent to target administration officials. DOJ exploiting incident to kill White House ballroom preservation lawsuit. <span class="badge badge-break">BREAKING</span></li>
+        <li><span class="ld ld-red">IRAN DEAL STANCE:</span> Trump will not accept Hormuz reopening without nuclear concessions. Cancelled Kushner/Witkoff Islamabad trip. US naval blockade continues "in full force."</li>
+        <li><span class="ld ld-red">WAR POWERS ACT:</span> 60-day congressional authorisation clock running. Pressure building from GOP moderates as energy costs surge domestically.</li>
+        <li><span class="ld ld-amber">KING CHARLES VISIT:</span> Four-day state visit begins. Diplomatic optics ahead of midterm season.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GOP -->
+  <div class="card border-amber">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--amber);">Republican Party</div>
+        <div class="card-title">GOP Dynamics</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Florida redistricting · War Powers fracture · Economy concerns</div>
+    <div class="card-body">
+      <ul class="bullets b-amber">
+        <li><span class="ld ld-amber">FLORIDA REDISTRICTING:</span> DeSantis unveils mid-decade map — shifts state from 20R/7D to 24R/4D. Special session opens today. <span class="badge badge-break">BREAKING</span></li>
+        <li><span class="ld ld-amber">WAR POWERS FRACTURE:</span> Small number of GOP senators signalling discomfort with prolonged war without formal authorisation. Not a floor rebellion yet.</li>
+        <li><span class="ld ld-amber">ECONOMY EXPOSURE:</span> Strategists warn energy prices and inflation are the core midterm liability. Iran war must resolve or the party absorbs the economic cost in November.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DEMS -->
+  <div class="card border-blue">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--blue);">Opposition</div>
+        <div class="card-title">Democrat Watch</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Midterm economy framing · DOJ overreach critique · 12–15 target seats</div>
+    <div class="card-body">
+      <ul class="bullets b-blue">
+        <li><span class="ld ld-blue">MIDTERM MESSAGING:</span> Democrats framing war economy — petrol prices, supply chain stress — as primary voter message. Dissatisfaction with economic conditions tracking upward in polls.</li>
+        <li><span class="ld ld-blue">DOJ OVERREACH:</span> Dem allies argue using Correspondents' Dinner shooting to suppress preservation litigation sets dangerous institutional precedent. National Trust refuses to drop case.</li>
+        <li><span class="ld ld-blue">TARGET SEATS:</span> Dems eyeing 12–15 GOP-held suburban seats where energy and healthcare costs are live electoral liabilities. Florida redistricting complicates map.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BATTLEGROUND MAP -->
+  <div class="card border-gold">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--gold);">2026 Midterms</div>
+        <div class="card-title">Battleground Map</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">5 toss-up states · Generic ballot tied 46–47</div>
+    <div class="card-body">
+      <div class="state-grid">
+        <div class="state-box sr">TX</div>
+        <div class="state-box sr">FL</div>
+        <div class="state-box sr">OH</div>
+        <div class="state-box lr">GA</div>
+        <div class="state-box lr">NC</div>
+        <div class="state-box to">PA</div>
+        <div class="state-box to">MI</div>
+        <div class="state-box to">WI</div>
+        <div class="state-box to">AZ</div>
+        <div class="state-box to">NV</div>
+        <div class="state-box ld2">VA</div>
+        <div class="state-box ld2">CO</div>
+        <div class="state-box ld2">NH</div>
+        <div class="state-box sd">CA</div>
+        <div class="state-box sd">NY</div>
+      </div>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(220,38,38,0.8);"></div>Safe R</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(220,38,38,0.3);border:1px solid rgba(220,38,38,0.5);"></div>Lean R</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(234,179,8,0.4);border:1px solid rgba(234,179,8,0.6);"></div>Toss-Up</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(59,130,246,0.3);border:1px solid rgba(59,130,246,0.5);"></div>Lean D</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(59,130,246,0.8);"></div>Safe D</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">Trump Approval</div>
+          <div class="stat-value warn">43%</div>
+          <div class="stat-sub dn">▼ −3pts since Hormuz</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Generic Ballot</div>
+          <div class="stat-value neu">46R / 47D</div>
+          <div class="stat-sub" style="color:var(--blue);">Slight Dem edge</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STABILITY GAUGES -->
+  <div class="card border-red">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--red);">Indicators</div>
+        <div class="card-title">Political Stability Gauges</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Institutional Tension HIGH · War Powers pressure elevated</div>
+    <div class="card-body">
+      <div class="gauge-list">
+        <div class="gauge">
+          <div class="gauge-top">
+            <span class="gauge-name">Political Stability</span>
+            <span class="gauge-val" style="color:var(--amber);">38</span>
+          </div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:38%;background:var(--amber);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top">
+            <span class="gauge-name">Institutional Tension</span>
+            <span class="gauge-val" style="color:var(--red);">74</span>
+          </div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:74%;background:var(--red);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top">
+            <span class="gauge-name">GOP Cohesion</span>
+            <span class="gauge-val" style="color:var(--yellow);">61</span>
+          </div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:61%;background:var(--yellow);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top">
+            <span class="gauge-name">Dem Midterm Momentum</span>
+            <span class="gauge-val" style="color:var(--blue);">55</span>
+          </div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:55%;background:var(--blue);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top">
+            <span class="gauge-name">War Powers Pressure</span>
+            <span class="gauge-val" style="color:var(--red);">68</span>
+          </div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:68%;background:var(--red);"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     TAB 3: WORLD
+════════════════════════════════ -->
+<div id="tab-world" class="section">
+  <div class="section-header">
+    <span class="section-title" style="color:var(--teal);">World Brief</span>
+    <span class="section-time">GLOBAL GEOPOLITICS</span>
+  </div>
+
+  <!-- GEOPOLITICS -->
+  <div class="card border-teal open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--teal);">Geopolitics</div>
+        <div class="card-title">Key Developments</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-body">
+      <ul class="bullets b-teal">
+        <li><span class="ld ld-red">IRAN–US WAR:</span> Day 59. Revised peace proposal on table — Hormuz reopening without nuclear preconditions. Trump stance: unacceptable. Dual blockade continues at strategic chokepoint. <span class="badge badge-break">CRITICAL</span></li>
+        <li><span class="ld ld-teal">RUSSIA–IRAN AXIS:</span> Araghchi meets Putin in St Petersburg. Russia co-vetoed UN Hormuz resolution. Moscow benefits from sustained high oil prices — no incentive to facilitate rapid deal.</li>
+        <li><span class="ld ld-teal">UK STATE VISIT:</span> Keir Starmer's government navigating UK bases used for US defensive operations (Diego Garcia, RAF Fairford) while opposing regime-change framing.</li>
+        <li><span class="ld ld-amber">PAKISTAN–INDIA:</span> Post-war militarisation continuing. Pakistan holds unusual leverage as sole US–Iran mediation channel. Munir field marshal elevation is a political signal.</li>
+        <li><span class="ld ld-amber">GAZA:</span> First US–Hamas direct talks since October ceasefire in mid-April. Agreement described as fragile. ~1M children assessed as needing mental health support.</li>
+        <li><span class="ld ld-amber">MEXICO:</span> Military operations against cartels authorised. Significant shift in sovereignty posture under sustained US pressure.</li>
+      </ul>
+      <div class="analysis a-teal">
+        <div class="analysis-label">▸ Assessment</div>
+        <div class="analysis-text">Russia and China have structural incentives to prolong the Hormuz standoff. A deal is likely eventual but the timeline depends on which side absorbs more economic pain first. Iran's mine-tracking problem is an underreported physical barrier to any rapid resolution.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOTSPOTS -->
+  <div class="card border-amber">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--amber);">Strategic Hotspots</div>
+        <div class="card-title">Regional Risk Map</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">1 Critical · 3 High · 2 Elevated · 1 Moderate</div>
+    <div class="card-body">
+      <div class="heat-list">
+        <div class="heat-item"><span class="heat-name">Persian Gulf / Hormuz</span><span class="heat-badge hc">CRITICAL</span></div>
+        <div class="heat-item"><span class="heat-name">Israel–Lebanon</span><span class="heat-badge hh">HIGH</span></div>
+        <div class="heat-item"><span class="heat-name">Red Sea / Yemen</span><span class="heat-badge hh">HIGH</span></div>
+        <div class="heat-item"><span class="heat-name">Gulf States</span><span class="heat-badge hh">HIGH</span></div>
+        <div class="heat-item"><span class="heat-name">Pakistan–India</span><span class="heat-badge he">ELEVATED</span></div>
+        <div class="heat-item"><span class="heat-name">Russia–Ukraine</span><span class="heat-badge he">ELEVATED</span></div>
+        <div class="heat-item"><span class="heat-name">Taiwan Strait</span><span class="heat-badge hm">MODERATE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIPLOMACY -->
+  <div class="card border-blue">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--blue);">Diplomacy</div>
+        <div class="card-title">Multilateral Developments</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">UN veto · 38-nation Hormuz coalition · IEA oil release</div>
+    <div class="card-body">
+      <ul class="bullets b-blue">
+        <li><span class="ld ld-blue">UN SECURITY COUNCIL:</span> China and Russia vetoed April 7 resolution on Hormuz shipping. Formal multilateral deadlock confirmed.</li>
+        <li><span class="ld ld-blue">HORMUZ COALITION:</span> 38 nations signed statement supporting safe passage efforts. UK and France hosted two conferences.</li>
+        <li><span class="ld ld-blue">IEA RESERVE RELEASE:</span> 32 member nations including Australia released 400M barrels of strategic reserves. Temporary relief measure.</li>
+        <li><span class="ld ld-blue">AU: IS BRIDES:</span> Federal government under pressure over 4 women and 9 children stranded in Syria. Self-managed return policy being challenged legally and ethically.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ECONOMICS -->
+  <div class="card border-gold">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--gold);">Economics</div>
+        <div class="card-title">Global Market Indicators</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Oil ~$96 · LNG +45% · Shipping rates +180%</div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">Brent Crude</div>
+          <div class="stat-value warn">~$96</div>
+          <div class="stat-sub warn">▲ War premium</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Gold</div>
+          <div class="stat-value up">$3,180</div>
+          <div class="stat-sub up">▲ Safe-haven</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">LNG Spot EU</div>
+          <div class="stat-value warn">+45%</div>
+          <div class="stat-sub warn">▲ Qatar blocked</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Shipping Rates</div>
+          <div class="stat-value warn">+180%</div>
+          <div class="stat-sub warn">▲ Cape rerouting</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Intel Corp</div>
+          <div class="stat-value up">+28%</div>
+          <div class="stat-sub up">▲ AI chip surge</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">ASX 200</div>
+          <div class="stat-value neu">8,786</div>
+          <div class="stat-sub dn">▼ 4th loss day</div>
+        </div>
+      </div>
+      <div class="analysis a-gold">
+        <div class="analysis-label">▸ Note</div>
+        <div class="analysis-text">Europe most exposed — 12–14% LNG supply via Qatar through Hormuz. China holds ~80 days oil reserves. The longer Hormuz stays closed, the more Beijing pressures Tehran to deal.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCI-TECH -->
+  <div class="card border-cyan">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--cyan);">Science & Tech</div>
+        <div class="card-title">Notable Developments</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Intel AI chip surge · Hormuz mine complexity · ASX governance failure</div>
+    <div class="card-body">
+      <ul class="bullets b-teal" style="--teal: var(--cyan);">
+        <li><span class="ld ld-cyan">INTEL AI CHIPS:</span> Q2 guidance $13.8–14.8B driven by AI data centre demand. +28% on day, +81% YTD. Confirms AI infrastructure buildout unaffected by geopolitical disruption.</li>
+        <li><span class="ld ld-cyan">HORMUZ MINE PROBLEM:</span> Iran reportedly lost tracking on mines placed in Strait. Physical reopening operationally dangerous even if a political deal is reached — mine clearance operations required.</li>
+        <li><span class="ld ld-cyan">ASX DOWNGRADE:</span> S&P Global downgraded ASX issuer credit rating on 16 April after governance and risk management failures found by Australian regulator.</li>
+        <li><span class="ld ld-cyan">MARITIME INTEL:</span> Iran bringing retired tanker NASHA out of storage at Kharg Island to manage oil storage under US blockade. Iranian crude exports declining — 1.71M bpd in April.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     TAB 4: MIDDLE EAST
+════════════════════════════════ -->
+<div id="tab-me" class="section">
+  <div class="section-header">
+    <span class="section-title" style="color:var(--red);">Middle East War</span>
+    <span class="section-time">DAY 59 — US–IRAN CONFLICT</span>
+  </div>
+
+  <!-- CASUALTY COUNTER -->
+  <div class="casualty-row">
+    <div class="cas-item">
+      <div class="cas-label">IRAN KIA</div>
+      <div class="cas-count">3,375</div>
+      <div class="cas-sub">Preliminary</div>
+    </div>
+    <div class="cas-item">
+      <div class="cas-label">LEBANON KIA</div>
+      <div class="cas-count">2,509</div>
+      <div class="cas-sub">Preliminary</div>
+    </div>
+    <div class="cas-item">
+      <div class="cas-label">GULF KIA</div>
+      <div class="cas-count">28</div>
+      <div class="cas-sub">Counter-strikes</div>
+    </div>
+  </div>
+
+  <!-- BATTLEFIELD -->
+  <div class="card border-red open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--red);">Battlefield</div>
+        <div class="card-title">Active Developments</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-body">
+      <ul class="bullets b-red">
+        <li><span class="ld ld-red">CEASEFIRE:</span> Conditional ceasefire extended by Trump. Neither side returned to full exchanges but both maintain offensive posture. Iran: "prepared for multi-front combat in 2026."</li>
+        <li><span class="ld ld-red">DUAL BLOCKADE:</span> US blocking Iranian port-bound shipping since 13 April. IRGC blocking non-allied commercial Hormuz passage. Tanker traffic at ~5% of pre-war levels. <span class="badge badge-break">CRITICAL</span></li>
+        <li><span class="ld ld-red">TANKER INCIDENTS:</span> IRGC seized two vessels (21 Apr). US fired on and seized Iranian-flagged tanker post-20 Apr. Trump ordered Navy to shoot boats laying mines.</li>
+        <li><span class="ld ld-red">MINE HAZARD:</span> Iran lost tracking on mines placed in Strait — cannot fully reopen even if politically willing. Mine clearance required before normal shipping resumes.</li>
+        <li><span class="ld ld-amber">LEBANON:</span> Israeli strikes on Hezbollah continue. French UNIFIL peacekeeper killed — France blames Hezbollah, which denies. Rubio says US aware of Israeli strikes.</li>
+        <li><span class="ld ld-amber">SUPREME LEADER:</span> Khamenei's successor has not appeared publicly since announcement. Domestic consolidation incomplete — significant uncertainty variable for any deal.</li>
+      </ul>
+      <div class="analysis a-red">
+        <div class="analysis-label">▸ Assessment</div>
+        <div class="analysis-text">Day 59 is the longest sustained US naval-air conflict since Iraq. Mine problem is the most underreported complication. A political deal could be signed but physical reopening may take weeks. Iran retains asymmetric leverage through this mechanism.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIPLOMACY -->
+  <div class="card border-gold">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--gold);">Diplomacy</div>
+        <div class="card-title">Peace Talks Status</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Staged deal framework emerging · Kushner trip cancelled</div>
+    <div class="card-body">
+      <ul class="bullets b-gold">
+        <li><span class="ld ld-gold">IRAN OFFER:</span> Reopen Hormuz if US lifts blockade. Nuclear issue deferred to later phase. Rubio: "better than expected" but insufficient. Trump cancelled Kushner/Witkoff Islamabad trip.</li>
+        <li><span class="ld ld-gold">STAGED FRAMEWORK:</span> Sources say sides closer than public statements suggest. Phase 1: Hormuz + ceasefire. Phase 2: nuclear framework. Timeline unknown.</li>
+        <li><span class="ld ld-gold">RUSSIA BACKING:</span> Putin signalling support for Iran after Araghchi visit. Co-vetoed UN resolution. Russia financially benefits from prolonged disruption.</li>
+        <li><span class="ld ld-gold">WAR POWERS:</span> 60-day clock creates domestic constraint on Trump. Congressional authorisation required to continue operations. May accelerate deal pressure.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- REGIONAL ACTORS -->
+  <div class="card border-amber">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--amber);">Actors</div>
+        <div class="card-title">Regional Forces & Proxies</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">6 active parties — IRGC · IDF · Hezbollah · Houthis · Russia · CENTCOM</div>
+    <div class="card-body">
+      <ul class="bullets b-amber">
+        <li><span class="ld ld-red">IRAN (IRGC):</span> Blockading Hormuz. Seizing vessels. Mine tracking lost. New supreme leader unstable. Diplomatically active via Russia and Pakistan.</li>
+        <li><span class="ld ld-red">ISRAEL (IDF):</span> Strikes on Lebanon continue under ceasefire. Nuclear dismantlement remains primary objective. US–Israel coordination active.</li>
+        <li><span class="ld ld-amber">HEZBOLLAH:</span> Technically observing ceasefire. French UNIFIL peacekeeper killed. Rebuilding under reduced Iranian supply lines.</li>
+        <li><span class="ld ld-amber">HOUTHIS (YEMEN):</span> Resumed Red Sea attacks. Suez Canal disrupted — rerouted via Cape of Good Hope. Major global supply disruption vector.</li>
+        <li><span class="ld ld-teal">RUSSIA:</span> Diplomatic cover for Iran. Co-vetoed UN resolution. No direct military role assessed. Benefits from oil price elevation.</li>
+        <li><span class="ld ld-blue">US CENTCOM:</span> Naval blockade of Iranian ports. UK bases in use. Mine-laying boats ordered engaged. War Powers clock running.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ESCALATION GAUGES -->
+  <div class="card border-red">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--red);">Risk Gauges</div>
+        <div class="card-title">Escalation Indicators</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Ceasefire breakdown 65 · Nuclear escalation 52 · Deal probability 42</div>
+    <div class="card-body">
+      <div class="gauge-list">
+        <div class="gauge">
+          <div class="gauge-top"><span class="gauge-name">Ceasefire Breakdown Risk</span><span class="gauge-val" style="color:var(--red);">65</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:65%;background:var(--red);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top"><span class="gauge-name">Nuclear Escalation Risk</span><span class="gauge-val" style="color:var(--amber);">52</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:52%;background:var(--amber);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top"><span class="gauge-name">Gulf State Spillover</span><span class="gauge-val" style="color:var(--amber);">48</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:48%;background:var(--amber);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top"><span class="gauge-name">Ground Invasion Risk</span><span class="gauge-val" style="color:var(--yellow);">38</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:38%;background:var(--yellow);"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-top"><span class="gauge-name">Deal Probability (30 days)</span><span class="gauge-val" style="color:var(--green);">42</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:42%;background:var(--green);"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OIL & SHIPPING -->
+  <div class="card border-cyan">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-title-block">
+        <div class="card-category" style="color:var(--cyan);">Oil & Shipping</div>
+        <div class="card-title">Hormuz — Maritime Status</div>
+      </div>
+      <span class="card-toggle">▼</span>
+    </div>
+    <div class="card-preview">Strait BLOCKED · Red Sea DANGEROUS · Cape rerouted</div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">Brent Crude</div>
+          <div class="stat-value warn">~$96</div>
+          <div class="stat-sub warn">▲ +35% since Feb 28</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Iran Exports</div>
+          <div class="stat-value dn">1.71M</div>
+          <div class="stat-sub dn">▼ bpd declining</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">IEA Release</div>
+          <div class="stat-value" style="color:var(--cyan);">400M</div>
+          <div class="stat-sub" style="color:var(--cyan);">bbl released</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Iran Daily Loss</div>
+          <div class="stat-value dn">$500M</div>
+          <div class="stat-sub dn">▼ per Trump claim</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="route-list">
+        <div class="route">
+          <div class="route-info">
+            <div class="route-name">Strait of Hormuz</div>
+            <div class="route-detail">~5% prewar traffic · dual blockade · mines</div>
+          </div>
+          <span class="route-status rs-closed">BLOCKED</span>
+        </div>
+        <div class="route">
+          <div class="route-info">
+            <div class="route-name">Red Sea / Suez</div>
+            <div class="route-detail">Houthi attacks resumed · Suez disrupted</div>
+          </div>
+          <span class="route-status rs-danger">DANGEROUS</span>
+        </div>
+        <div class="route">
+          <div class="route-info">
+            <div class="route-name">Cape of Good Hope</div>
+            <div class="route-detail">Main reroute · +2–3 wks · rates +180%</div>
+          </div>
+          <span class="route-status rs-reroute">REROUTED</span>
+        </div>
+        <div class="route">
+          <div class="route-info">
+            <div class="route-name">Arabian Sea</div>
+            <div class="route-detail">US Navy patrols · boarding operations</div>
+          </div>
+          <span class="route-status rs-restrict">RESTRICTED</span>
+        </div>
+        <div class="route">
+          <div class="route-info">
+            <div class="route-name">Mediterranean</div>
+            <div class="route-detail">Open · increased LNG traffic via Europe</div>
+          </div>
+          <span class="route-status rs-open">OPEN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="brief-footer">
+  <div class="footer-line">CLASSIFICATION: <span>OPEN SOURCE INTELLIGENCE</span></div>
+  <div class="footer-line">DISTRIBUTION: <span>INTERNAL BRIEFING</span></div>
+  <div class="footer-line">CONFIDENCE: <span>MEDIUM</span> · CREATED BY: <span>MARK M.</span></div>
+  <div class="footer-line">GENERATED: <span>28 APR 2026 // 05:00 AEST</span></div>
+</div>
+
+
+<script>
+  function showTab(name, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleCard(header) {
+    const card = header.closest('.card');
+    card.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
