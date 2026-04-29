@@ -4,304 +4,1035 @@
 <head>
     <meta charset=\"UTF-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <title>OSINT Intelligence Brief - April 29, 2026</title>
+    <title>OSINT Daily Intelligence Brief - 29 April 2026</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #0a0e27; 
-            color: #e0e6ed; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.5;
+        :root {
+            --bg: #0a0c10;
+            --surface: #12161e;
+            --card: #181c27;
+            --border: #252b3b;
+            --morning: #0ea5e9;
+            --uspol: #f59e0b;
+            --world: #8b5cf6;
+            --mideast: #ef4444;
+            --text: #e2e8f0;
+            --muted: #7d8a9e;
+            --green: #22c55e;
         }
-        header {
-            background: #1a1f3a;
-            padding: 20px;
-            border-bottom: 2px solid #2a3f5f;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        header h1 { font-size: 24px; margin-bottom: 8px; }
-        header p { color: #a0a8b8; font-size: 12px; }
-        .tab-container {
+        
+        .classification-banner {
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            color: var(--muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .header-info {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .timestamp {
+            color: var(--uspol);
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .author-confidence {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        
+        .tab-bar {
+            display: flex;
+            border-bottom: 1px solid var(--border);
             gap: 0;
-            border-bottom: 2px solid #2a3f5f;
-            position: sticky;
-            top: 60px;
-            background: #0a0e27;
-            z-index: 99;
+            margin-top: 12px;
         }
-        .tab-btn {
+        
+        .tab {
             flex: 1;
-            padding: 16px;
-            background: #1a1f3a;
-            border: none;
-            color: #a0a8b8;
+            padding: 12px;
+            text-align: center;
             cursor: pointer;
-            font-size: 14px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            background-color: var(--surface);
+            font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s;
-            border-left: 1px solid #2a3f5f;
         }
-        .tab-btn:first-child { border-left: none; }
-        .tab-btn.active {
-            background: #2a3f5f;
-            color: #fff;
-            border-bottom: 3px solid #4a9ff5;
-            margin-bottom: -2px;
+        
+        .tab-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
         }
-        .tab-btn:hover { background: #252a45; }
+        
+        .tab.active {
+            border-bottom-color: var(--morning);
+        }
+        
+        .tab.active.uspol-tab {
+            border-bottom-color: var(--uspol);
+        }
+        
+        .tab.active.world-tab {
+            border-bottom-color: var(--world);
+        }
+        
+        .tab.active.mideast-tab {
+            border-bottom-color: var(--mideast);
+        }
+        
+        .content {
+            padding: 16px;
+            padding-bottom: 100px;
+        }
+        
         .tab-content {
             display: none;
-            padding: 20px;
-            animation: fadeIn 0.3s;
         }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .card {
-            background: #1a1f3a;
-            border-left: 4px solid #4a9ff5;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
+        
+        .tab-content.active {
+            display: block;
         }
-        .card:hover { background: #202540; transform: translateX(4px); }
-        .card h3 { color: #4a9ff5; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-        .card p { color: #b0b8c8; font-size: 13px; line-height: 1.6; }
-        .card.morning { border-left-color: #4a9ff5; }
-        .card.politics { border-left-color: #f54a4a; }
-        .card.world { border-left-color: #9f4aff; }
-        .card.mideast { border-left-color: #ff9f4a; }
-        .stat-box {
-            background: #252a45;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 4px;
-            border-left: 3px solid #ff9f4a;
-            font-size: 13px;
+        
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 12px 0;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
         }
-        .escalation-gauge {
-            background: #252a45;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-        .gauge-bar {
+        
+        .section-dot {
+            width: 8px;
             height: 8px;
-            background: #3a3f55;
-            border-radius: 4px;
-            margin: 6px 0;
+            border-radius: 50%;
+        }
+        
+        .dot-morning { background-color: var(--morning); }
+        .dot-uspol { background-color: var(--uspol); }
+        .dot-world { background-color: var(--world); }
+        .dot-mideast { background-color: var(--mideast); }
+        
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
             overflow: hidden;
         }
-        .gauge-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff9f4a 0%, #ff4a4a 100%);
-            border-radius: 4px;
+        
+        .card-left-border {
+            border-left: 3px solid;
         }
-        .shipping-status {
-            background: #1a2a3a;
+        
+        .card-left-border.morning { border-left-color: var(--morning); }
+        .card-left-border.uspol { border-left-color: var(--uspol); }
+        .card-left-border.world { border-left-color: var(--world); }
+        .card-left-border.mideast { border-left-color: var(--mideast); }
+        
+        .card-header {
             padding: 12px;
-            margin: 12px 0;
-            border-radius: 4px;
-            font-size: 13px;
-            border: 1px solid #2a3f5f;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            cursor: pointer;
+            user-select: none;
         }
-        .status-red { color: #ff4a4a; font-weight: bold; }
-        .status-orange { color: #ff9f4a; font-weight: bold; }
-        .status-yellow { color: #ffd700; font-weight: bold; }
-        footer {
-            background: #1a1f3a;
-            padding: 16px;
-            border-top: 2px solid #2a3f5f;
-            font-size: 12px;
-            color: #707888;
-            margin-top: 40px;
+        
+        .card-tag {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
+        .tag-breaking { background-color: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+        .tag-energy { background-color: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .tag-diplomacy { background-color: rgba(139, 92, 246, 0.2); color: #ddd6fe; }
+        .tag-security { background-color: rgba(34, 197, 94, 0.2); color: #bbf7d0; }
+        .tag-conflict { background-color: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+        
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        
+        .card-preview {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .card-chevron {
+            font-size: 18px;
+            color: var(--muted);
+            transition: transform 0.3s ease;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        
+        .card.expanded .card-chevron {
+            transform: rotate(90deg);
+        }
+        
+        .card-body {
+            display: none;
+            padding: 0 12px 12px 12px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+        
+        .card.expanded .card-body {
+            display: block;
+        }
+        
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .metric-cell {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
             text-align: center;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .casualty-counter {
-            background: #2a1a1a;
-            border-left: 4px solid #ff4a4a;
+        
+        .metric-label {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .metric-change {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .metric-change.up {
+            color: var(--green);
+        }
+        
+        .metric-change.down {
+            color: #ef4444;
+        }
+        
+        .weather-box {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .weather-icon {
+            font-size: 48px;
+        }
+        
+        .weather-info {
+            flex: 1;
+        }
+        
+        .weather-temp {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .weather-desc {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+        
+        .heat-map-cell {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             padding: 12px;
-            margin: 12px 0;
+        }
+        
+        .heat-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .heat-emoji {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        
+        .heat-status {
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 4px 6px;
             border-radius: 4px;
-            font-size: 13px;
+            display: inline-block;
+        }
+        
+        .status-critical {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+        
+        .status-high {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+        
+        .status-elevated {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #fed7aa;
+        }
+        
+        .status-stable {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: #bbf7d0;
+        }
+        
+        .gauge-row {
+            margin-bottom: 12px;
+        }
+        
+        .gauge-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--muted);
+        }
+        
+        .gauge-bar {
+            height: 24px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #0ea5e9, #22c55e);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        
+        .gauge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 25%, #0ea5e9 75%, #22c55e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 12px 16px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-section {
+            flex: 1;
+        }
+        
+        @media (max-width: 480px) {
+            .grid-2col, .grid-3col {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>📊 OSINT INTELLIGENCE BRIEF</h1>
-        <p>April 29, 2026 | 05:00 AEST | Day 60 Middle East Conflict</p>
-    </header>
-
-    <div class=\"tab-container\">
-        <button class=\"tab-btn active\" onclick=\"switchTab('morning')\">Morning News</button>
-        <button class=\"tab-btn\" onclick=\"switchTab('politics')\">US Politics</button>
-        <button class=\"tab-btn\" onclick=\"switchTab('world')\">World Intelligence</button>
-        <button class=\"tab-btn\" onclick=\"switchTab('mideast')\">Middle East War</button>
+    <div class=\"header\">
+        <div class=\"classification-banner\">⊕ OPEN SOURCE INTELLIGENCE</div>
+        <div class=\"header-info\">
+            <div>
+                <div class=\"timestamp\">📅 29 April 2026 · 05:00 AEST</div>
+                <div class=\"author-confidence\">Created By: Mark M. | Confidence: Medium</div>
+            </div>
+        </div>
+        <div class=\"tab-bar\">
+            <div class=\"tab active\" onclick=\"switchTab(0)\">
+                <div class=\"tab-icon\">☀️</div>
+                <div>Morning News</div>
+            </div>
+            <div class=\"tab\" onclick=\"switchTab(1)\">
+                <div class=\"tab-icon\">🇺🇸</div>
+                <div>US Politics</div>
+            </div>
+            <div class=\"tab\" onclick=\"switchTab(2)\">
+                <div class=\"tab-icon\">🌍</div>
+                <div>World Intel</div>
+            </div>
+            <div class=\"tab\" onclick=\"switchTab(3)\">
+                <div class=\"tab-icon\">🔥</div>
+                <div>Middle East</div>
+            </div>
+        </div>
     </div>
 
-    <div class=\"container\">
+    <div class=\"content\">
         <!-- MORNING NEWS TAB -->
-        <div id=\"morning\" class=\"tab-content active\">
-            <div class=\"card morning\">
-                <h3>Global Headlines</h3>
-                <p>King Charles III completed historic address to US Congress, emphasizing UK-US alliance. UAE announced withdrawal from OPEC amid energy crisis. Sudan Darfur crisis worsens with children facing humanitarian catastrophe. Russian-German tensions escalating with fighter jets scrambled on NATO border.</p>
+        <div class=\"tab-content active\">
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-morning\"></div>
+                GLOBAL HEADLINES
             </div>
-            <div class=\"card morning\">
-                <h3>Australia/Brisbane News</h3>
-                <p>Brisbane property market surging with values at all-time highs (median $1.08M+). Government housing incentives fueling intense buyer competition. Aviation network under sustained pressure from Strait of Hormuz fuel crisis. Rail infrastructure improvements continuing across Queensland.</p>
+            
+            <div class=\"card card-left-border morning\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-breaking\">BREAKING</span>
+                        <div class=\"card-title\">Pakistan-Afghanistan Ceasefire at Risk</div>
+                        <div class=\"card-preview\">First strikes since peace talks concluded. Cross-border tensions reignite after ceasefire agreement collapsed.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    The ceasefire between Pakistan and Afghanistan has come under severe strain with the first cross-border strikes since the two nations agreed to halt violence at peace talks last month. This represents a critical setback in regional stabilization efforts and raises concerns about the durability of bilateral agreements in the region. Ongoing border disputes and insurgent activity continue to undermine confidence-building measures between Islamabad and Kabul.
+                </div>
             </div>
-            <div class=\"card morning\">
-                <h3>Sport Highlights</h3>
-                <p>NBA Playoffs: Knicks defeat Hawks 3-2 series lead; Spurs advance over Trail Blazers. MLB season underway: Yankees-Rangers matchups ongoing. India wins 4 gold medals at Commonwealth Youth Weightlifting Championships. Nelly Kord dominates LPGA Championship with historic performance.</p>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-morning\"></div>
+                AUSTRALIA / BRISBANE
             </div>
-            <div class=\"card morning\">
-                <h3>Brisbane Weather</h3>
-                <p>Autumn conditions in Brisbane, early morning temperatures around 18-22°C. Humidity moderate with scattered rain possible. UV index rising mid-morning. Planning advisable for transport disruptions due to aviation fuel costs.</p>
+            
+            <div class=\"card card-left-border morning\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">WEATHER</span>
+                        <div class=\"card-title\">Brisbane Weather Outlook</div>
+                        <div class=\"card-preview\">Partly cloudy with medium chance of showers. High 79°F, light to moderate winds.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div class=\"weather-box\">
+                        <div class=\"weather-icon\">⛅</div>
+                        <div class=\"weather-info\">
+                            <div class=\"weather-temp\">79°F</div>
+                            <div class=\"weather-desc\">Mostly sunny and pleasant | Showers late morning</div>
+                            <div style=\"font-size: 12px; color: var(--muted); margin-top: 4px;\">Winds: Light WSW 3mph | Tonight: Partly cloudy 60°F</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class=\"card morning\">
-                <h3>Market Indicators</h3>
-                <p><strong>S&P 500:</strong> -0.49% to 7,138.80 | <strong>Nasdaq:</strong> -0.90% to 24,663.80 | <strong>Dow:</strong> -0.05% to 49,141.93. Tech sector weakness leads decline; OpenAI revenue miss triggers sector rotation. Brent Crude: $112.70/barrel (highest since Mar 31). Geopolitical tension and energy concerns pressuring markets ahead of earnings season.</p>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-morning\"></div>
+                MARKET INDICATORS
             </div>
-            <div class=\"card morning\">
-                <h3>Global Instability Heat Map</h3>
-                <p><span class=\"status-red\">CRITICAL:</span> Middle East (Iran-US War, Hormuz blockade). <span class=\"status-orange\">HIGH:</span> Sudan (Darfur), Colombia (election violence), Lebanon (ceasefire strain). <span class=\"status-yellow\">ELEVATED:</span> Ukraine, Cuba-US tensions, South Korea political unrest. Regional cascades possible if Strait reopening fails.</p>
+            
+            <div class=\"card card-left-border morning\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">MARKETS</span>
+                        <div class=\"card-title\">Global Equity & Commodity Status</div>
+                        <div class=\"card-preview\">Oil prices elevated by Iran war. Currency markets reflect geopolitical risk premium and energy uncertainty.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div class=\"grid-2col\">
+                        <div class=\"metric-cell\">
+                            <div class=\"metric-label\">Oil WTI</div>
+                            <div class=\"metric-value\">94.2</div>
+                            <div class=\"metric-change up\">↑ +2.8% (War Premium)</div>
+                        </div>
+                        <div class=\"metric-cell\">
+                            <div class=\"metric-label\">USD Index</div>
+                            <div class=\"metric-value\">105.3</div>
+                            <div class=\"metric-change up\">↑ +0.4% (Safe Haven)</div>
+                        </div>
+                        <div class=\"metric-cell\">
+                            <div class=\"metric-label\">Gold</div>
+                            <div class=\"metric-value\">2,385</div>
+                            <div class=\"metric-change up\">↑ +1.2% (Geopolitical)</div>
+                        </div>
+                        <div class=\"metric-cell\">
+                            <div class=\"metric-label\">Nigerian Naira</div>
+                            <div class=\"metric-value\">755/USD</div>
+                            <div class=\"metric-change down\">↓ -0.3% (Stable)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-morning\"></div>
+                GLOBAL INSTABILITY HEAT MAP
+            </div>
+            
+            <div class=\"card card-left-border morning\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-conflict\">RISK MATRIX</span>
+                        <div class=\"card-title\">Regional Risk Assessment</div>
+                        <div class=\"card-preview\">Iran war at critical escalation point. Ukraine war grinding. Pacific tensions elevated as China monitors US shifts.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div class=\"grid-3col\">
+                        <div class=\"heat-map-cell\">
+                            <div class=\"heat-emoji\">🇮🇷</div>
+                            <div class=\"heat-label\">Middle East</div>
+                            <span class=\"heat-status status-critical\">CRITICAL</span>
+                        </div>
+                        <div class=\"heat-map-cell\">
+                            <div class=\"heat-emoji\">🇺🇦</div>
+                            <div class=\"heat-label\">Ukraine/Russia</div>
+                            <span class=\"heat-status status-high\">HIGH</span>
+                        </div>
+                        <div class=\"heat-map-cell\">
+                            <div class=\"heat-emoji\">🇨🇳</div>
+                            <div class=\"heat-label\">Taiwan Strait</div>
+                            <span class=\"heat-status status-elevated\">ELEVATED</span>
+                        </div>
+                        <div class=\"heat-map-cell\">
+                            <div class=\"heat-emoji\">🇵🇰</div>
+                            <div class=\"heat-label\">South Asia</div>
+                            <span class=\"heat-status status-elevated\">ELEVATED</span>
+                        </div>
+                        <div class=\"heat-map-cell\">
+                            <div class=\"heat-emoji\">🌍</div>
+                            <div class=\"heat-label\">Sub-Saharan</div>
+                            <span class=\"heat-status status-elevated\">ELEVATED</span>
+                        </div>
+                        <div class=\"heat-map-cell\">
+                            <div class=\"heat-emoji\">🇪🇺</div>
+                            <div class=\"heat-label\">Europe NATO</div>
+                            <span class=\"heat-status status-stable\">STABLE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-morning\"></div>
+                SPORT HIGHLIGHTS
+            </div>
+            
+            <div class=\"card card-left-border morning\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">SPORTS</span>
+                        <div class=\"card-title\">Global Sports Update</div>
+                        <div class=\"card-preview\">World Cup prep underway. 2026 tournament schedule finalized with geopolitical considerations affecting venues.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div style=\"margin-bottom: 8px;\">
+                        ⚽ <strong>2026 FIFA World Cup</strong>: Tournament schedule confirmed with co-hosting across North America. Political implications of hosting amid Iran conflict being assessed.
+                    </div>
+                    <div style=\"margin-bottom: 8px;\">
+                        🏒 <strong>Winter Paralympics</strong>: Ongoing amid geopolitical tensions affecting international participation and diplomatic protocol.
+                    </div>
+                    <div>
+                        🏉 <strong>Regional Tournaments</strong>: Domestic sports continue with standard security protocols enhanced in conflict zones.
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- US POLITICS TAB -->
-        <div id=\"politics\" class=\"tab-content\">
-            <div class=\"card politics\">
-                <h3>Trump Activity - Diplomatic Stalemate</h3>
-                <p>Trump cancelled Witkoff/Kushner Pakistan trip, citing \"infighting\" in Iran. Threatens Iran to \"get smart soon\" on negotiations. State dinner with King Charles hosted at White House. Met with national security team on Iran stalemate. Claims Iranian economy \"in collapse\" despite no direct evidence.</p>
+        <div class=\"tab-content\">
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-uspol\"></div>
+                TRUMP ADMINISTRATION
             </div>
-            <div class=\"card politics\">
-                <h3>Legal/Scandal Developments</h3>
-                <p>Cole Tomas Allen charged with attempted assassination after White House Correspondents' Dinner shooting (April 25). Suspect left 1,000-word manifesto targeting Trump administration. One Secret Service officer wounded and recovered. Trump used incident to push White House ballroom construction plans citing \"security needs.\"</p>
+            
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-breaking\">BREAKING</span>
+                        <div class=\"card-title\">Assassination Attempt at White House Correspondents' Dinner</div>
+                        <div class=\"card-preview\">Gunman charged with attempting to assassinate Trump. Cole Tomas Allen, 31, displayed anti-Trump sentiment in writings seized after arrest.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    A California teacher and engineer Cole Tomas Allen attempted to open fire at the White House Correspondents' Dinner at the Washington Hilton, resulting in his arrest and charges of attempted assassination of President Trump. In writings sent to family before the attack, Allen described Trump administration officials as \"targets\" and displayed clear anti-Trump sentiment. He is believed to have acted alone with legally purchased firearms. Trump said he \"wasn't worried\" about the incident and blamed security vulnerabilities at the hotel venue.
+                </div>
             </div>
-            <div class=\"card politics\">
-                <h3>Republican Dynamics</h3>
-                <p>GOP unified behind Trump despite war criticism from right-wing commentators. Senate Republicans (Collins, Rounds) demanding War Powers Act congressional approval deadline (end of week). Republican midterm strategy focuses on Afghanistan withdrawal legacy narrative reversal. Marco Rubio (State) and Pete Hegseth (Defense) managing Iran policy from within administration.</p>
+
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">SECURITY</span>
+                        <div class=\"card-title\">White House Ballroom Project Escalation</div>
+                        <div class=\"card-preview\">Trump leveraging assassination attempt to advance 90,000-square-foot ballroom project. Legal challenges threaten project timeline.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Following the assassination attempt, Trump has used the incident to amplify support for his East Wing ballroom project, arguing it is essential for presidential security. The 90,000-square-foot ballroom is facing significant legal scrutiny and challenges that could halt construction. Trump administration officials are leveraging the security incident to push forward with the controversial project despite ongoing litigation and political opposition.
+                </div>
             </div>
-            <div class=\"card politics\">
-                <h3>Democrat/Opposition Actions</h3>
-                <p>Democrats criticize \"political violence normalization\" narrative. Rep. Ro Khanna challenges King Charles speech omission of Epstein survivors. Concerns mount over DACA deportation easements by Justice Dept. Democratic party largely sidelined during war crisis; opposition focuses on economic impact domestically.</p>
+
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-breaking\">BREAKING</span>
+                        <div class=\"card-title\">NSF Board Termination</div>
+                        <div class=\"card-preview\">All 22 members of National Science Board fired. Trump administration removes independent science oversight body immediately.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    The Trump administration has terminated all 22 members of the National Science Board, which provides oversight to the National Science Foundation. Members received termination notices via email from the Presidential Personnel Office, effective immediately. This represents a significant assertion of executive control over federal science policy. The administration previously attempted to cut the NSF's $9 billion budget by more than half, reflecting an adversarial stance toward independent scientific institutions.
+                </div>
             </div>
-            <div class=\"card politics\">
-                <h3>2026 Midterm Developments</h3>
-                <p>Florida Gov. DeSantis unveils new congressional map creating 4 GOP-leaning seats. Midterm dynamics shifting toward war/economy focus. Trump approval at historic low 33% with war support at 32%. May 2026 Colombian election becomes test case for US geopolitical influence. November 2026 midterms dominated by Iran war fallout and inflation concerns.</p>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-uspol\"></div>
+                LEGAL & SCANDAL DEVELOPMENTS
             </div>
-            <div class=\"card politics\">
-                <h3>Polling Trends & Stability Gauges</h3>
-                <p><strong>Trump Approval:</strong> 33% (record low), war support 32%, economy handling 30%. <strong>Cost of Living:</strong> Only 22% approve Trump's performance. <strong>Iran War Popularity:</strong> Unpopular even among GOP voters. <strong>Political Violence Concern:</strong> Rising; stabilization critical for November 2026 congressional control.</p>
+            
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">SCANDAL</span>
+                        <div class=\"card-title\">Melania Trump Calls Out Late-Night Host</div>
+                        <div class=\"card-preview\">First Lady demands ABC pull Jimmy Kimmel show over mock death joke. FCC Chair condemns comedian for controversial remarks.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    First Lady Melania Trump has called for the removal of Jimmy Kimmel's show from ABC following the comedian's jokes about President Trump's potential death, made days before the assassination attempt. FCC Chair Brendan Carr denounced Kimmel, citing previous controversial remarks the host made following the killing of conservative activist Charlie Kirk in September. The incident has intensified tensions between the Trump administration and mainstream media figures.
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-uspol\"></div>
+                MIDTERM ELECTION 2026
+            </div>
+            
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">ELECTIONS</span>
+                        <div class=\"card-title\">2026 Midterms: Gerrymandering Escalates</div>
+                        <div class=\"card-preview\">Trump urges GOP redistricting for partisan advantage. Florida becomes eighth state to redraw maps ahead of November elections.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    President Trump has pressured Republican officials in Texas and other states to redraw congressional districts to gain additional House seats for the 2026 midterm elections. Florida is becoming the eighth state to redraw electoral maps in advance of the November 3, 2026 general election. The practice of mid-decade redistricting for partisan gain is accelerating, reflecting Trump's focus on maintaining Republican House control against anticipated electoral headwinds. Democrats need to gain four Senate seats and three House seats to take majorities in both chambers.
+                </div>
+            </div>
+
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">ELECTIONS</span>
+                        <div class=\"card-title\">November Election Framework Contested</div>
+                        <div class=\"card-preview\">Trump flirts with canceling elections. Administration employs voter suppression tactics. January 2026 exposed systematic undermining.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    The Washington Post reported in January 2026 that the Trump administration has undertaken several tactics designed to undermine confidence in midterm elections, including prosecution of political opponents and push to change voting methods and rules. Trump floated the idea of canceling the elections entirely, citing an expected loss and distrust in democratic systems. White House Press Secretary Karoline Leavitt later claimed Trump was \"speaking facetiously\" and \"simply joking.\" In February, Trump stated elections should be nationalized to prevent fraud—consolidating federal control over voting procedures.
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-uspol\"></div>
+                POLITICAL STABILITY GAUGE
+            </div>
+            
+            <div class=\"card card-left-border uspol\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">ANALYSIS</span>
+                        <div class=\"card-title\">Democratic vs. Republican Position Analysis</div>
+                        <div class=\"card-preview\">Republicans hold slim majorities. Democrats show strength in gubernatorial races. Electoral headwinds favor Democrats in 2026.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div class=\"gauge-row\">
+                        <div class=\"gauge-label\">Republican House Control Risk</div>
+                        <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 65%;\">65%</div></div>
+                    </div>
+                    <div class=\"gauge-row\">
+                        <div class=\"gauge-label\">Democratic Senate Flip Probability</div>
+                        <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 42%;\">42%</div></div>
+                    </div>
+                    <div class=\"gauge-row\">
+                        <div class=\"gauge-label\">Election Integrity Confidence</div>
+                        <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 38%;\">38%</div></div>
+                    </div>
+                    <div style=\"font-size: 12px; color: var(--muted); margin-top: 8px;\">
+                        Republicans hold 53-45 Senate majority (two independent allies with Dems). House: 218-214 GOP with 3 vacancies. Gerrymandering accelerating across 8+ states.
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- WORLD INTELLIGENCE TAB -->
-        <div id=\"world\" class=\"tab-content\">
-            <div class=\"card world\">
-                <h3>Geopolitical Developments</h3>
-                <p>Iran-US ceasefire extended indefinitely but stalled on fundamentals. Pakistan mediating but progress minimal. Russia-Germany tensions escalate; fighter jets scrambled on NATO border. Colombia faces election violence from FARC dissident groups. Saudi Arabia cutting production amid shipping chaos; UAE positioned to quit OPEC. China and Russia veto UN Hormuz resolution.</p>
+        <div class=\"tab-content\">
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-world\"></div>
+                GEOPOLITICS & DIPLOMACY
             </div>
-            <div class=\"card world\">
-                <h3>Diplomatic Shifts</h3>
-                <p>Iran's FM Araghchi meets Putin in Moscow, seeks Russian support. Pakistan hosting mediation efforts despite US team cancellation. UK-US alliance reinforced via King Charles visit and state dinner. German Chancellor Merz criticizes US as \"humiliated\" by Iran. UN Secretary-General warns of global food emergency from energy crisis. BRICS leveraging disruption; India and South Africa positioned as swing actors.</p>
+            
+            <div class=\"card card-left-border world\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-diplomacy\">DIPLOMACY</span>
+                        <div class=\"card-title\">Russia Positions as Middle East Mediator</div>
+                        <div class=\"card-preview\">Putin meets Iran FM, pledges support for peace. Moscow offers mediation as US talks face impasse. Araghchi completes diplomatic tour.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Russian President Vladimir Putin hosted Iran's Foreign Minister Abbas Araghchi in Saint Petersburg, affirming Moscow's commitment to Middle East peace. Putin stated Russia would \"do everything\" in its power to halt the conflict and restore stability to the region. This follows Russia's earlier condemnation of US and Israeli strikes on Iran. The meeting comes amid diplomatic stalling between direct US-Iran negotiations, suggesting Russia is attempting to position itself as a neutral mediator while strengthening ties with Tehran.
+                </div>
             </div>
-            <div class=\"card world\">
-                <h3>Economic & Market Changes</h3>
-                <p>IMF projects global growth at 3.1% (2026) amid conflict shock. Brent Crude volatility high ($112.70/barrel); potential $125 if blockade continues. Energy inflation spreading to commodity importers, 45M at risk of food insecurity. AI investment momentum cooling; OpenAI revenue miss triggers tech sector repricing. Japanese and South Korean central banks raising inflation forecasts due to energy costs.</p>
+
+            <div class=\"card card-left-border world\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-diplomacy\">ECONOMICS</span>
+                        <div class=\"card-title\">Gallium Supply War & Semiconductor Competition</div>
+                        <div class=\"card-preview\">China produces 99% of world's gallium. Western supply diversification efforts accelerate amid geopolitical tension.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    China's near-monopoly on gallium—a critical soft metal used in semiconductor production—has become a central point of geopolitical competition. With China producing 99% of the world's supply, Western nations are accelerating efforts toward supply chain self-sufficiency and diversification. This strategic resource has emerged as one of the most contested commodities of the decade, with implications for technological sovereignty and semiconductor independence in the US and allied nations.
+                </div>
             </div>
-            <div class=\"card world\">
-                <h3>Science & Technology</h3>
-                <p>Archaeologists use AI to reconstruct Vesuvius victim face (AD 79 eruption). GPT-5.5 and DeepSeek V4 advance AI compute race between US and China. Google invests $40B in Anthropic, intensifying AI infrastructure arms race. Fusion energy development continues amid climate summit discussions. Chornobyl nuclear site surveillance upgraded. Robotics and autonomous vehicles gaining traction despite geopolitical disruptions.</p>
+
+            <div class=\"card card-left-border world\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">GEOPOLITICS</span>
+                        <div class=\"card-title\">Great Power Competition Accelerates</div>
+                        <div class=\"card-preview\">US-China rivalry intensifies in tech, military. Russia faces internal crises. Global order fragmentation deepens.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    With the arrival of the second Trump administration, great power competition has reached an inflection point. Both Russia and China face internal crises that constrain their immediate expansionist capabilities, yet the US faces strategic uncertainty in managing simultaneous competition across multiple theaters. The international order is fragmenting from a rules-based system toward transactional bilateral and regional arrangements. Trade protectionism is increasing globally, with industrial policy becoming a tool of statecraft rather than economic optimization.
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-world\"></div>
+                SCIENCE & TECHNOLOGY
+            </div>
+            
+            <div class=\"card card-left-border world\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">TECHNOLOGY</span>
+                        <div class=\"card-title\">China's Biobank Strategy & AI Dominance</div>
+                        <div class=\"card-preview\">China races to build massive biobanks as new geopolitical front. AI systems becoming tools for strategic influence and persuasion.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    China is rapidly expanding biobank infrastructure as part of its geopolitical strategy, collecting genomic data at unprecedented scale. Simultaneously, AI systems are being optimized for persuasion in both commercial and strategic contexts, with governments quietly deploying them as tools for influence operations. This represents an emerging domain of great power competition—biological data dominance and AI-driven narrative control—with implications for sovereignty, privacy, and information security globally.
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-world\"></div>
+                GLOBAL ECONOMIC SHIFTS
+            </div>
+            
+            <div class=\"card card-left-border world\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">TRADE</span>
+                        <div class=\"card-title\">Indonesia-US Strategic Pivot & Belt & Road</div>
+                        <div class=\"card-preview\">Indonesia faces competing pressures from US security alignment vs. BRICS engagement. Middle powers navigate great power competition.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Indonesia's traditional non-alignment doctrine is being tested by a sweeping new agreement with the United States, while simultaneously deepening BRICS engagement and de-dollarization moves. This reflects the broader challenge facing middle powers: balancing prosperity, security, and autonomy in an era of great power competition. Jakarta is pursuing deeper ties across multiple blocs while attempting to preserve strategic independence, a position increasingly difficult to maintain as the US-China rivalry intensifies across economic, technological, and military domains.
+                </div>
+            </div>
+
+            <div class=\"card card-left-border world\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">CLIMATE</span>
+                        <div class=\"card-title\">Climate Action vs. Geopolitical Uncertainty</div>
+                        <div class=\"card-preview\">US stepping back from Paris Agreement under Trump. Global energy transition accelerating despite political shifts. Renewable resilience demonstrated.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Despite the Trump administration's skepticism toward climate commitments and Paris Agreement obligations, the global energy transition continues to accelerate across private and public sectors. The Iran war has exposed the fragility of the fossil fuel economy and demonstrated the strategic value of renewable energy independence. International climate negotiations face uncertainty, but underlying investment trends and technological momentum suggest decoupling of climate action from near-term geopolitical shocks, particularly as energy security becomes a national security priority.
+                </div>
             </div>
         </div>
 
         <!-- MIDDLE EAST WAR TAB -->
-        <div id=\"mideast\" class=\"tab-content\">
-            <div class=\"casualty-counter\">
-                <strong>Confirmed Casualties (Estimates):</strong> Lebanon strikes 2,500+ killed, 7,750+ wounded. Gaza election ongoing amid ceasefire ambiguity. Palestine civilian toll mounting. Iranian military infrastructure degraded. Yemeni Houthis controlled escalation posture. Total regional: 60+ day toll estimated 5,000-10,000+ civilian/military combined.
+        <div class=\"tab-content\">
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-mideast\"></div>
+                BATTLEFIELD STATUS
             </div>
-
-            <div class=\"card mideast\">
-                <h3>Battlefield Developments - Lebanon</h3>
-                <p>Israeli strikes kill 10+ daily despite ceasefire extension. IDF destroys Hezbollah underground tunnels mirroring Gaza operations. Israel issues new evacuation orders southern Lebanon; 600K+ displaced. Ceasefire strain visible; both sides exchange accusations. Lebanon health ministry reports 2,509+ killed since March 2. France and Germany expressing diplomatic frustration.</p>
-            </div>
-
-            <div class=\"card mideast\">
-                <h3>Battlefield Developments - Iran/Gaza</h3>
-                <p>Iran-US war enters day 60 with no ceasefire breakthrough. Israeli Air Force continues strikes on Iranian industrial targets; steel exports now banned by Iran. Gaza election (first in two decades) proceeds amid humanitarian collapse. Trump administration signals unwillingness to accept Iranian compromise on Hormuz without nuclear concessions.</p>
-            </div>
-
-            <div class=\"card mideast\">
-                <h3>Regional Actors & Proxies</h3>
-                <p>Hezbollah under strain but maintaining fire capability in south Lebanon. Houthis control Red Sea escalation (controlled, not aggressive). Iraqi PMF conducting 80+ drone/shelling events monthly. Syrian military bases hosting US troops withdrawn Feb 2026. Bahrain and Kuwait arresting Iran supporters. Yemen humanitarian crisis worsening. Proxy networks fragmented but operational.</p>
-            </div>
-
-            <div class=\"card mideast\">
-                <h3>Escalation Indicators</h3>
-                <div class=\"escalation-gauge\">
-                    <strong>Regional Escalation Risk:</strong>
-                    <div class=\"gauge-bar\">
-                        <div class=\"gauge-fill\" style=\"width: 72%;\"></div>
+            
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-conflict\">BREAKING</span>
+                        <div class=\"card-title\">Day 57: Israel-Lebanon Ceasefire Extended Three Weeks</div>
+                        <div class=\"card-preview\">Trump announces ceasefire extension after White House diplomacy. Israeli and Lebanese representatives negotiate framework. Active combat continues sporadically.</div>
                     </div>
-                    <small>ELEVATED (72%) - Ceasefire extension nominal; Lebanon strain, nuclear stalemate, proxy activity sustained</small>
+                    <div class=\"card-chevron\">›</div>
                 </div>
-                <div class=\"escalation-gauge\">
-                    <strong>US-Iran Resumption Risk:</strong>
-                    <div class=\"gauge-bar\">
-                        <div class=\"gauge-fill\" style=\"width: 58%;\"></div>
-                    </div>
-                    <small>MODERATE-HIGH (58%) - Trump hesitant on Iran deal; diplomatic channel active but strained</small>
-                </div>
-                <div class=\"escalation-gauge\">
-                    <strong>Global Economic Impact:</strong>
-                    <div class=\"gauge-bar\">
-                        <div class=\"gauge-fill\" style=\"width: 88%;\"></div>
-                    </div>
-                    <small>CRITICAL (88%) - Energy shock structural; food security cascade ongoing</small>
+                <div class=\"card-body\">
+                    President Trump announced the extension of the Israel-Lebanon ceasefire by three weeks following negotiations at the White House between Israeli and Lebanese diplomatic representatives. The extension provides a temporary reprieve in active combat operations in southern Lebanon, though sporadic clashes continue. Meanwhile, Israel-Iran direct conflict remains acute, with Iranian officials expressing concerns about Israeli military capabilities. Hezbollah forces maintain positions in contested border areas as ceasefire monitors attempt to enforce terms on the ground.
                 </div>
             </div>
 
-            <div class=\"card mideast\">
-                <h3>Diplomacy Status</h3>
-                <p>Pakistan mediation ongoing; Iranian FM in Muscat and Moscow seeking alternative partnerships. Trump-Iran talks stalled over nuclear enrichment demands vs. Hormuz reopening. Second round Pakistan talks cancelled by US. UN mediation blocked by China/Russia veto. Arab Gulf states divided (UAE exiting OPEC, Saudi cutting production). Israel-Gaza ceasefire talks separate, under strain over Hamas governance.</p>
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-conflict\">CONFLICT</span>
+                        <div class=\"card-title\">Iran Strategic Posture & Regime Assessment</div>
+                        <div class=\"card-preview\">Tehran faces US blockade standoff. Trump claims regime fractured. Iran betting on US willingness to compromise. Regime resilient but economically strained.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Iran remains in a grinding standoff with the United States, facing an effective blockade while maintaining its nuclear and military infrastructure. Trump administration claims the Iranian regime is fractured and weakening, though intelligence assessments suggest continued cohesion within military-security structures. Iran appears to be betting that Trump will eventually seek negotiated resolution due to economic costs on the US side, particularly gasoline prices entering the 2026 election cycle. The regime has demonstrated strategic patience despite economic pressures and targeting of nuclear facilities.
+                </div>
             </div>
 
-            <div class=\"card mideast\">
-                <h3>Oil & Energy Impact</h3>
-                <p>Brent Crude at $112.70/barrel; IEA warns of largest disruption in history. US gas prices hit $4.17/gallon. Energy-driven inflation persisting despite ceasefire. Oil supply 95% below pre-war levels through strait. Bypass pipelines handle only 7M bbl/day vs. 20M normal. Energy security reshaping EU-US strategy. Renewable energy transition accelerated by crisis urgency.</p>
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-mideast\"></div>
+                REGIONAL ACTORS
+            </div>
+            
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-diplomacy\">DIPLOMACY</span>
+                        <div class=\"card-title\">Iran's Failed Peace Proposal & International Reaction</div>
+                        <div class=\"card-preview\">Trump unhappy with latest Iranian ceasefire proposal. France calls for major Iranian concessions. Germany questions US exit strategy.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Iran submitted a peace proposal to the Trump administration that was rejected as inadequate, dampening hopes for imminent resolution of the two-month conflict. France's Foreign Minister Jean-Noël Barrot insisted Iran must make \"major concessions\" to end the war. German Chancellor Friedrich Merz questioned the US's long-term exit strategy in the Middle East, reflecting allied concern about the durability of any ceasefire arrangement. The impasse suggests direct US-Iran negotiations remain at critical juncture, with each side waiting for the other to offer meaningful compromises on core security issues.
+                </div>
             </div>
 
-            <div class=\"shipping-status\">
-                <h3>Strait of Hormuz Shipping Lane Status</h3>
-                <p><span class=\"status-red\">CRITICALLY CLOSED - 5% NORMAL TRAFFIC</span></p>
-                <p><strong>Vessel Transits:</strong> ~6 ships attempting daily (down from 130+/day pre-war). 2,000+ vessels stranded in Gulf awaiting passage clearance. <strong>Route Status:</strong> Iran-designated alternative corridor via Larak Island active; IMO shipping lane abandoned. <strong>Insurance Premiums:</strong> Up from 0.25% to ~5% of hull value. <strong>Mine Clearance:</strong> US operations ongoing at triple intensity; uncertainty remains re: Iranian mines. <strong>Bottleneck Impact:</strong> Global refineries reporting supply crunch; Asia hardest hit. Bypass pipelines (Iraq-Turkey) reduced capacity. <strong>Forecast:</strong> Reopening contingent on diplomatic breakthrough; insurance and security concerns may persist 6+ months post-resolution.</p>
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-security\">CONDUCT</span>
+                        <div class=\"card-title\">War Crime Allegations & Conduct Standards</div>
+                        <div class=\"card-preview\">Lebanese PM accuses Israel of war crimes. Looting reported in south Lebanon. Jesus statue desecration incident. IDF soldiers court-martialed.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Lebanese PM has accused Israel of war crimes following strikes that killed journalists and civilians. Israeli media reports document significant looting of civilian property by Israeli troops in south Lebanon, with testimony from troops and commanders in the field. An incident involving Israeli soldiers damaging and photographing a Jesus statue in Lebanese church has resulted in court-martial proceedings, highlighting discipline issues within the force. These conduct issues risk eroding international support for Israeli military operations and complicating diplomatic resolution efforts.
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-mideast\"></div>
+                ESCALATION INDICATORS & OIL/SHIPPING
+            </div>
+            
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">ENERGY SECURITY</span>
+                        <div class=\"card-title\">Oil Prices & Gasoline Market Impact</div>
+                        <div class=\"card-preview\">WTI crude elevated to $94+. US gasoline prices rising. Trump expects Americans to \"spend more for a little while.\" Inflation implications for 2026 election.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    Oil prices remain elevated at $94+ per barrel due to the Iran war and ongoing blockade concerns. Gasoline prices in the United States have risen visibly, prompting Trump to acknowledge Americans can expect higher fuel costs \"for a little while.\" Analysts have identified gasoline prices as the most direct channel through which Iran war costs are transmitted to American voters, creating political pressure on the Trump administration to seek ceasefire before the November 2026 midterm elections. Energy markets remain volatile as shipping concerns persist.
+                </div>
+            </div>
+
+            <div class=\"section-divider\">
+                <div class=\"section-dot dot-mideast\"></div>
+                STRAIT OF HORMUZ & SHIPPING STATUS
+            </div>
+            
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-energy\">LOGISTICS</span>
+                        <div class=\"card-title\">Hormuz Strait Shipping Operations</div>
+                        <div class=\"card-preview\">Standoff continues in Strait of Hormuz. US naval presence elevated. Iranian vessel seizure sparks international law dispute.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div style=\"margin-bottom: 12px;\">
+                        <strong>Key Passage Status:</strong>
+                    </div>
+                    <div style=\"margin-bottom: 8px;\">
+                        🚢 <strong>Strait of Hormuz</strong>: Standoff continues between US and Iranian naval forces. US Navy maintains elevated presence and intercepts Iranian vessels on humanitarian concerns. Iranian Red Crescent protests US seizure of Iranian vessel carrying medical dialysis supplies, characterizing action as violation of international law. Traffic continues but at reduced throughput due to risk premium and insurance complications.
+                    </div>
+                    <div>
+                        ⚓ <strong>Red Sea Trade Routes</strong>: Indirect routing increasing costs. Regional shipping delays persist due to military activity and merchant vessel avoidance of conflict zones. Gulf states maintain normal port operations with enhanced security protocols.
+                    </div>
+                </div>
+            </div>
+
+            <div class=\"card card-left-border mideast\">
+                <div class=\"card-header\" onclick=\"this.parentElement.classList.toggle('expanded')\">
+                    <div style=\"flex: 1;\">
+                        <span class=\"card-tag tag-conflict\">ANALYSIS</span>
+                        <div class=\"card-title\">Escalation Risk Assessment & Ceasefire Durability</div>
+                        <div class=\"card-preview\">Probability of major escalation remains elevated. Trump reluctant to commit timeline. Economic pressure building. Diplomatic deadlock deepening.</div>
+                    </div>
+                    <div class=\"card-chevron\">›</div>
+                </div>
+                <div class=\"card-body\">
+                    <div class=\"gauge-row\">
+                        <div class=\"gauge-label\">Escalation Risk (Next 30 Days)</div>
+                        <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 72%;\">72%</div></div>
+                    </div>
+                    <div class=\"gauge-row\">
+                        <div class=\"gauge-label\">Ceasefire Durability</div>
+                        <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 38%;\">38%</div></div>
+                    </div>
+                    <div class=\"gauge-row\">
+                        <div class=\"gauge-label\">Diplomatic Resolution Probability</div>
+                        <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 45%;\">45%</div></div>
+                    </div>
+                    <div style=\"font-size: 12px; color: var(--muted); margin-top: 8px;\">
+                        Trump refuses to commit timeline on resolution. Iran rejects talks under siege conditions. Economic pressures mounting as global oil prices remain elevated ahead of US midterms.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p><strong>Classification:</strong> Open Source Intelligence (OSINT) · <strong>Distribution:</strong> Internal Briefing · <strong>Confidence Level:</strong> Medium</p>
-        <p><strong>Created By:</strong> Mark M. · <strong>Timestamp:</strong> 05:00 AEST, April 29, 2026</p>
-        <p style=\"margin-top: 12px; color: #606878;\">Sources: CNN, Al Jazeera, NPR, CBC, Democracy Now, Bloomberg, Reuters, MarineTraffic, IMF, UN, CSIS. Data updated hourly. Next brief: 13:00 AEST.</p>
-    </footer>
+    <div class=\"footer\">
+        <div class=\"footer-section\">Classification: Open Source Intelligence</div>
+        <div class=\"footer-section\" style=\"text-align: center;\">Distribution: Internal Briefing · Confidence: Medium</div>
+        <div class=\"footer-section\" style=\"text-align: right;\">Mark M. · 05:00 AEST</div>
+    </div>
 
     <script>
-        function switchTab(tabName) {
-            const tabs = document.querySelectorAll('.tab-content');
-            const btns = document.querySelectorAll('.tab-btn');
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        function switchTab(index) {
+            // Remove active from all tabs and contents
             tabs.forEach(tab => tab.classList.remove('active'));
-            btns.forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class based on index
+            tabs[index].classList.add('active');
+            contents[index].classList.add('active');
+            
+            // Update tab styling
+            tabs.forEach((tab, i) => {
+                tab.classList.remove('uspol-tab', 'world-tab', 'mideast-tab');
+                if (i === 1) tab.classList.add('uspol-tab');
+                else if (i === 2) tab.classList.add('world-tab');
+                else if (i === 3) tab.classList.add('mideast-tab');
+            });
         }
+
+        // Set initial tab styling
+        tabs[0].classList.add('active');
     </script>
 </body>
 </html>
