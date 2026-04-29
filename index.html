@@ -1,1 +1,307 @@
-\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Intelligence Brief - April 29, 2026</title>\n    <style>\n        * { margin: 0; padding: 0; box-sizing: border-box; }\n        body {\n            background-color: #0d1117;\n            color: #e0e0e0;\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n            line-height: 1.6;\n        }\n        header {\n            position: sticky;\n            top: 0;\n            background-color: #161b22;\n            border-bottom: 2px solid #30363d;\n            z-index: 100;\n            padding: 0;\n        }\n        .header-content {\n            max-width: 1200px;\n            margin: 0 auto;\n            padding: 12px 20px;\n        }\n        .title { font-size: 18px; font-weight: bold; margin-bottom: 12px; }\n        .tabs {\n            display: flex;\n            gap: 0;\n            border-bottom: 1px solid #30363d;\n            overflow-x: auto;\n        }\n        .tab-btn {\n            flex: 1;\n            padding: 10px 15px;\n            background: none;\n            border: none;\n            color: #8b949e;\n            cursor: pointer;\n            border-bottom: 3px solid transparent;\n            font-size: 13px;\n            font-weight: 500;\n            transition: all 0.2s;\n            min-width: 140px;\n        }\n        .tab-btn:hover { color: #e0e0e0; }\n        .tab-btn.active {\n            color: #58a6ff;\n            border-bottom-color: #58a6ff;\n        }\n        .tab-btn.morning { --accent: #ff6b35; }\n        .tab-btn.politics { --accent: #004e89; }\n        .tab-btn.world { --accent: #1b998b; }\n        .tab-btn.mideast { --accent: #d62828; }\n        .content {\n            max-width: 1200px;\n            margin: 0 auto;\n            padding: 20px;\n        }\n        .tab-content { display: none; }\n        .tab-content.active { display: block; }\n        .card {\n            background-color: #161b22;\n            border-left: 4px solid;\n            margin-bottom: 15px;\n            border-radius: 4px;\n            overflow: hidden;\n        }\n        .card.morning { border-left-color: #ff6b35; }\n        .card.politics { border-left-color: #004e89; }\n        .card.world { border-left-color: #1b998b; }\n        .card.mideast { border-left-color: #d62828; }\n        .card-header {\n            padding: 12px 15px;\n            background-color: #0d1117;\n            cursor: pointer;\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            font-weight: 600;\n            font-size: 14px;\n        }\n        .card-header:hover { background-color: #1c2128; }\n        .toggle-icon { font-size: 12px; transition: transform 0.2s; }\n        .card-body {\n            padding: 12px 15px;\n            font-size: 13px;\n            line-height: 1.5;\n            color: #c9d1d9;\n            max-height: 200px;\n            overflow: hidden;\n        }\n        .card.expanded .card-body { max-height: none; }\n        .card.expanded .toggle-icon { transform: rotate(180deg); }\n        .preview { color: #8b949e; font-style: italic; }\n        .timestamp { \n            font-size: 11px; \n            color: #6e7681;\n            display: block;\n            margin-top: 8px;\n        }\n        .footer {\n            max-width: 1200px;\n            margin: 40px auto 0;\n            padding: 20px;\n            border-top: 1px solid #30363d;\n            font-size: 11px;\n            color: #6e7681;\n        }\n        .gauge { margin: 12px 0; }\n        .gauge-label { font-size: 12px; margin-bottom: 4px; }\n        .gauge-bar {\n            width: 100%;\n            height: 8px;\n            background-color: #30363d;\n            border-radius: 4px;\n            overflow: hidden;\n        }\n        .gauge-fill {\n            height: 100%;\n            background: linear-gradient(90deg, #28a745 0%, #ffc107 50%, #dc3545 100%);\n        }\n        .casualty-counter {\n            background-color: #0d1117;\n            padding: 15px;\n            border-radius: 4px;\n            margin-bottom: 15px;\n            border: 1px solid #30363d;\n        }\n        .counter-title { font-weight: bold; margin-bottom: 8px; }\n        .counter-value { font-size: 24px; font-weight: bold; color: #d62828; }\n        .panel { background-color: #0d1117; padding: 12px 15px; border: 1px solid #30363d; border-radius: 4px; margin: 12px 0; font-size: 13px; }\n        .label-danger { color: #f85149; }\n        .label-warning { color: #d29922; }\n        .label-success { color: #3fb950; }\n    </style>\n</head>\n<body>\n    <header>\n        <div class=\"header-content\">\n            <div class=\"title\">📊 OSINT Intelligence Brief | April 29, 2026 | 05:00 AEST</div>\n            <div class=\"tabs\">\n                <button class=\"tab-btn morning active\" onclick=\"switchTab('morning')\">Morning News</button>\n                <button class=\"tab-btn politics\" onclick=\"switchTab('politics')\">US Politics</button>\n                <button class=\"tab-btn world\" onclick=\"switchTab('world')\">World Intelligence</button>\n                <button class=\"tab-btn mideast\" onclick=\"switchTab('mideast')\">Middle East War</button>\n            </div>\n        </div>\n    </header>\n\n    <div class=\"content\">\n        <!-- MORNING NEWS TAB -->\n        <div id=\"morning\" class=\"tab-content active\">\n            <div class=\"card morning\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Global Headlines <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Iran War Escalation, Day 60:</strong> UAE withdraws from OPEC amid Strait of Hormuz blockade. UN warns of global food emergency. Trump rejects Iran's proposal on nuclear postponement. Germany claims Iran \"humiliated\" US in negotiations.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card morning\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Australia/Brisbane News <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Jamarra Ugle-Hagan Debut:</strong> Former number one AFL draft pick Jamarra Ugle-Hagan makes debut for Gold Coast Suns. <strong>QLD Police:</strong> 61 new officers graduated from QPS Academy in Brisbane. Fatal traffic crash in Toowoomba under investigation April 29.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card morning\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Sport Highlights <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>NBA Playoffs:</strong> Philadelphia 76ers beat Boston Celtics 113-97 in Game 5. Hawks-Knicks matchup continues. <strong>MLB:</strong> Houston Astros leading with 21-8 record. <strong>Golf:</strong> Matt and Alex Fitzpatrick win Zurich Classic team event.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card morning\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Brisbane Weather <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Wednesday Forecast:</strong> Mostly sunny and pleasant, high 26°C (79°F), low 16°C (60°F). Partly cloudy tonight. Light winds WSW 3 mph with gusts to 10 mph. Medium chance showers from late morning Thursday. Current: 24.2°C at observation time.<span class=\"timestamp\">April 29, 05:00 AEST</span>\n                </div>\n            </div>\n\n            <div class=\"card morning\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Market Indicators <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>US Equities:</strong> S&P 500 marginally higher, trading 30-point range. Semiconductor index (SOX) broke 18-session winning streak. <strong>Commodities:</strong> Brent Crude at $112/barrel, wheat and corn higher on crop reports. Oil prices pressured by Iran war, potential $115/barrel. Ag commodities mostly higher.<span class=\"timestamp\">April 28</span>\n                </div>\n            </div>\n\n            <div class=\"card morning\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Global Instability Heat Map <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Critical Zones:</strong> Iran (Day 60 conflict, negotiations stalled), Middle East (Hezbollah-Israel clashes in Lebanon), Sudan Darfur (humanitarian catastrophe 20 years on), Colombia (election-eve violence spike). <strong>Escalating:</strong> Cuba tensions (US military threat amid negotiations). <strong>Monitoring:</strong> North Korea, European energy crisis fallout.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n        </div>\n\n        <!-- US POLITICS TAB -->\n        <div id=\"politics\" class=\"tab-content\">\n            <div class=\"card politics\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Trump Activity <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Passport Branding:</strong> State Department to issue passports featuring Trump's image inside as commemorative 250th anniversary edition. <strong>Reflecting Pool Project:</strong> Lincoln Memorial Reflecting Pool being painted \"American flag blue,\" estimated cost $2M, completion by end May. <strong>Meetings:</strong> Situation Room session on Iran negotiations stalled. Welcome to King Charles III state visit.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card politics\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Legal/Scandal Developments <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>WHCD Shooting:</strong> Cole Allen charged with attempted assassination at White House Correspondents' Dinner April 25. Note indicated targeting Trump officials. <strong>White House Ballroom:</strong> DOJ pursuing National Trust lawsuit citing \"Trump Derangement Syndrome.\" Republicans split on taxpayer vs. private funding. Democrats oppose project outright.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card politics\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Republican Dynamics <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>House Retirements:</strong> 55 incumbents announced non-reelection (2nd highest since 1992). GOP House members burn out faster than Democrats (avg 5 terms vs 9.9). <strong>Ballroom Funding Split:</strong> Sen. Rick Scott opposes taxpayer funding citing $39T debt. Sen. Lindsey Graham pushes for vote. <strong>Congressional Dysfunction:</strong> Least productive session in history, with Trump legislating by executive order.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card politics\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Democrat/Opposition Actions <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Ballroom Opposition:</strong> Democrats overwhelmingly opposed to White House Ballroom project; argue Trump violated law by not seeking congressional approval. <strong>King Charles Visit:</strong> Rep. Ro Khanna criticized King Charles for not mentioning Epstein survivors in congressional address. General bipartisan moment during King's speech noted irony of divided Congress.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card politics\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">2026 Midterm Developments <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Timing Critical:</strong> Midterms November 2026. Trump approval at record low 34%, with war and inflation blame. Senate Banking Committee votes April 29 on Fed Chair Kevin Warsh nomination. <strong>Senate Outlook:</strong> Republicans must contend with low approval ratings while defending Senate control. GOP fracturing evident on policy disputes over Iran war and spending.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card politics\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Polling Trends & Stability Gauges <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Approval Crisis:</strong> Trump approval 34% (Reuters/Ipsos, Apr 24-27), only 22% support cost of living performance. Marquette poll: 32% approve Iran war handling, 65% among Republicans (significant dissent). AP-NORC: overall 33%, war support 32%, economic approval 30%. War unpopular across both parties despite GOP unity vote.<span class=\"timestamp\">April 28</span>\n                </div>\n            </div>\n\n            <div class=\"gauge\">\n                <div class=\"gauge-label\">Trump Administration Stability</div>\n                <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 35%;\"></div></div>\n                <span style=\"font-size: 11px; color: #6e7681;\">LOW: Iran stalemate, approval crisis, GOP divisions on spending/war</span>\n            </div>\n        </div>\n\n        <!-- WORLD INTELLIGENCE TAB -->\n        <div id=\"world\" class=\"tab-content\">\n            <div class=\"card world\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Geopolitical Developments <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Iran War Intensifies:</strong> US-Israeli war on Iran enters Day 60, negotiations stalled. Trump rejects Iran's Strait reopening proposal. <strong>Lebanon:</strong> Israeli strikes kill 10+ in southern Lebanon; Hezbollah tunnels destroyed. <strong>US-Cuba Tensions:</strong> US threatens military action despite high-level negotiations. <strong>South Korea:</strong> Former President Yoon Suk Yeol's wife sentenced for Unification Church gifts corruption.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card world\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Diplomatic Shifts <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Iran Peace Talks:</strong> Pakistan mediators expect revised proposal from Iran in days. Trump indicated rejection of earlier version on nuclear program postponement. War Powers Act deadline approaching end of week; Senate expecting Trump to seek 30-day extension. <strong>King Charles Visit:</strong> UK-US state visit in Washington with address to joint Congress emphasizing NATO, special relationship.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card world\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Economic & Market Changes <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Energy Crisis Cascades:</strong> UAE quits OPEC+; Brent Crude $112/barrel, potential $115 by 2026. Iran bans steel exports after airstrikes. China readying oil exports restart. <strong>Global Inflation Shock:</strong> World Bank warns cumulative waves: energy prices → food prices → inflation → interest rates. Poorest hit hardest. <strong>Gas Prices USA:</strong> Over $4/gallon, inflation highest in 2 years.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card world\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Science & Technology <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Archaeological AI:</strong> Archaeologists use AI to digitally reconstruct face of AD 79 Vesuvius eruption victim, opening new understanding of historical disasters. <strong>Tech Policy:</strong> Google workers urge CEO to reject classified AI work with Pentagon. Ukraine-Chornobyl tensions: memorial marking Chornobyl disaster 40 years on amid war. <span class=\"timestamp\">April 28</span>\n                </div>\n            </div>\n\n            <div class=\"card world\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Regional Crisis Zones <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Darfur Humanitarian Crisis:</strong> UNICEF warns children facing new catastrophe 20 years after 2005; less international focus but greater need. Violence has displaced millions across Sudan. <strong>Colombia Violence:</strong> Election-eve attacks on civilians, military bases in southwestern region. <strong>Measles Outbreaks:</strong> 20+ active outbreaks in US after South Carolina declared outbreak over (nearly 1000 infected).<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n        </div>\n\n        <!-- MIDDLE EAST WAR TAB -->\n        <div id=\"mideast\" class=\"tab-content\">\n            <div class=\"casualty-counter\">\n                <div class=\"counter-title\">Est. Cumulative Casualty Count (Gaza/Palestine/Israel/Regional)</div>\n                <div class=\"counter-value\">Thousands+ (Precision Count Disputed)</div>\n                <div style=\"font-size: 11px; color: #8b949e; margin-top: 8px;\">Note: Exact figures contested; UN estimates ongoing. Gaza election held April 29 (first in 20 years).</div>\n            </div>\n\n            <div class=\"card mideast\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Battlefield Developments <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Day 60 Status:</strong> US-Israeli war on Iran ongoing. <strong>Lebanon Front:</strong> Israeli strikes kill 10+ civilians in southern Lebanon April 28; IDF destroying Hezbollah underground tunnels. Israel warns more Lebanese to evacuate homes pre-operations. Ceasefire \"understandings\" violated by Hezbollah per IDF. <strong>Gaza:</strong> First Palestinian election in 20 years held April 29.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card mideast\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Regional Actors & Proxies <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Iran Leadership Crisis:</strong> Former Supreme Leader Ayatollah Khamenei killed; son Mojtaba named new leader but not seen/heard from, believed seriously wounded. Trump claims \"regime change,\" but Iranian officials deny crisis exaggerated. <strong>Hezbollah:</strong> Continued operations in Lebanon despite Israeli strikes. <strong>Saudi/UAE Dynamics:</strong> UAE exit from OPEC signals regional energy realignment amid conflict.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card mideast\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Escalation Indicators <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>High Pressure Points:</strong> Lebanon ceasefire violations, Israeli expansion of operations into southern region, Hezbollah tunnel discoveries. Iran threatening blockade enforcement; US preparing extended Naval blockade. <strong>Nuclear/Strategic:</strong> Trump rejects Iran's nuclear program postponement proposal—nuclear issue remains unresolved flashpoint. Senate War Powers Act deadline imminent (end week).<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </card>\n\n            <div class=\"gauge\" style=\"margin-top: 15px;\">\n                <div class=\"gauge-label\">Conflict Escalation Risk</div>\n                <div class=\"gauge-bar\"><div class=\"gauge-fill\" style=\"width: 75%;\"></div></div>\n                <span style=\"font-size: 11px; color: #6e7681;\">ELEVATED: Stalled negotiations, nuclear unresolved, Hezbollah tensions, blockade enforcement</span>\n            </div>\n\n            <div class=\"card mideast\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Diplomacy Status <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Peace Talks Stalled:</strong> Pakistan mediators awaiting revised Iranian proposal. Trump publicly states Iran \"better get smart soon\" in social media post April 29. <strong>Key Sticking Points:</strong> Iran proposes reopening Strait + nuclear discussions postponement; Trump rejects without full nuclear resolution. <strong>Timeline Pressure:</strong> War Powers Act 60-day deadline end of week; Trump expected to request 30-day extension.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"card mideast\">\n                <div class=\"card-header\" onclick=\"toggleCard(this)\">Oil & Shipping Impacts <span class=\"toggle-icon\">▼</span></div>\n                <div class=\"card-body\">\n                    <strong>Energy Market Shock:</strong> Brent Crude $112/barrel, at risk for $115. One-fifth global oil supply previously via Strait. <strong>Global Food Emergency:</strong> UN Secretary-General warns of food crisis as fuel/fertilizer costs spike. <strong>Chinese Refineries:</strong> US warns banks of sanctions risk over \"teapot\" refineries handling Iranian oil (restart underway). Commodity inflation cascading through developing nations.<span class=\"timestamp\">April 28-29</span>\n                </div>\n            </div>\n\n            <div class=\"panel\" style=\"margin-top: 15px;\">\n                <strong>Strait of Hormuz Shipping Lane Status</strong>\n                <div style=\"margin-top: 8px;\">\n                    <div><span class=\"label-danger\">● CRITICAL:</span> Pre-war: 130+ ships/day crossing. Current: ~6 ships attempting crossing (MarineTraffic).</div>\n                    <div style=\"margin-top: 6px;\"><span class=\"label-danger\">● BLOCKADE STATUS:</span> Iran blockade on non-allied vessels + US-led stop-and-search operations in effect.</div>\n                    <div style=\"margin-top: 6px;\"><span class=\"label-warning\">● TRAPPED SEAFARERS:</span> Thousands trapped inside channel due to blockade enforcement.</div>\n                    <div style=\"margin-top: 6px;\"><span class=\"label-danger\">● NEGOTIATION IMPACT:</span> Trump rejects Iran's Strait reopening proposal without nuclear resolution—reopening timeline indefinite.</div>\n                    <div style=\"margin-top: 6px;\"><span class=\"label-danger\">● IRANIAN COUNTER-MOVE:</span> Iran seized vessels; allowed select petroleum shipments \"in coordination\" (April 17-21); seizure of Idemitsu Kosan-owned vessel reported April 21-29.</div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"footer\">\n        <div><strong>Classification:</strong> Open Source Intelligence (OSINT)</div>\n        <div><strong>Distribution:</strong> Internal Briefing</div>\n        <div><strong>Confidence Level:</strong> Medium (subject to rapid changes in active conflict zones)</div>\n        <div><strong>Created By:</strong> Mark M.</div>\n        <div><strong>Timestamp:</strong> 05:00 AEST, April 29, 2026</div>\n        <div style=\"margin-top: 12px; border-top: 1px solid #30363d; padding-top: 12px;\">\n            <strong>Data Sources:</strong> Reuters, AP, CNN, Al Jazeera, BBC, MarineTraffic, World Bank, UN, FOX, NBC, NPR, CBS, Bloomberg, Yahoo Finance, Bureau of Meteorology, State Department Official Statements\n        </div>\n    </div>\n\n    <script>\n        function switchTab(tabName) {\n            // Hide all tabs\n            const allTabs = document.querySelectorAll('.tab-content');\n            allTabs.forEach(tab => tab.classList.remove('active'));\n            \n            // Remove active from all buttons\n            const allBtns = document.querySelectorAll('.tab-btn');\n            allBtns.forEach(btn => btn.classList.remove('active'));\n            \n            // Show selected tab\n            document.getElementById(tabName).classList.add('active');\n            \n            // Highlight selected button\n            event.target.classList.add('active');\n        }\n        \n        function toggleCard(header) {\n            const card = header.closest('.card');\n            card.classList.toggle('expanded');\n        }\n    </script>\n</body>\n</html>\n
+
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>OSINT Intelligence Brief - April 29, 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0a0e27; 
+            color: #e0e6ed; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+        }
+        header {
+            background: #1a1f3a;
+            padding: 20px;
+            border-bottom: 2px solid #2a3f5f;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header h1 { font-size: 24px; margin-bottom: 8px; }
+        header p { color: #a0a8b8; font-size: 12px; }
+        .tab-container {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #2a3f5f;
+            position: sticky;
+            top: 60px;
+            background: #0a0e27;
+            z-index: 99;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 16px;
+            background: #1a1f3a;
+            border: none;
+            color: #a0a8b8;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-left: 1px solid #2a3f5f;
+        }
+        .tab-btn:first-child { border-left: none; }
+        .tab-btn.active {
+            background: #2a3f5f;
+            color: #fff;
+            border-bottom: 3px solid #4a9ff5;
+            margin-bottom: -2px;
+        }
+        .tab-btn:hover { background: #252a45; }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card {
+            background: #1a1f3a;
+            border-left: 4px solid #4a9ff5;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .card:hover { background: #202540; transform: translateX(4px); }
+        .card h3 { color: #4a9ff5; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        .card p { color: #b0b8c8; font-size: 13px; line-height: 1.6; }
+        .card.morning { border-left-color: #4a9ff5; }
+        .card.politics { border-left-color: #f54a4a; }
+        .card.world { border-left-color: #9f4aff; }
+        .card.mideast { border-left-color: #ff9f4a; }
+        .stat-box {
+            background: #252a45;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+            border-left: 3px solid #ff9f4a;
+            font-size: 13px;
+        }
+        .escalation-gauge {
+            background: #252a45;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .gauge-bar {
+            height: 8px;
+            background: #3a3f55;
+            border-radius: 4px;
+            margin: 6px 0;
+            overflow: hidden;
+        }
+        .gauge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff9f4a 0%, #ff4a4a 100%);
+            border-radius: 4px;
+        }
+        .shipping-status {
+            background: #1a2a3a;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 13px;
+            border: 1px solid #2a3f5f;
+        }
+        .status-red { color: #ff4a4a; font-weight: bold; }
+        .status-orange { color: #ff9f4a; font-weight: bold; }
+        .status-yellow { color: #ffd700; font-weight: bold; }
+        footer {
+            background: #1a1f3a;
+            padding: 16px;
+            border-top: 2px solid #2a3f5f;
+            font-size: 12px;
+            color: #707888;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .casualty-counter {
+            background: #2a1a1a;
+            border-left: 4px solid #ff4a4a;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📊 OSINT INTELLIGENCE BRIEF</h1>
+        <p>April 29, 2026 | 05:00 AEST | Day 60 Middle East Conflict</p>
+    </header>
+
+    <div class=\"tab-container\">
+        <button class=\"tab-btn active\" onclick=\"switchTab('morning')\">Morning News</button>
+        <button class=\"tab-btn\" onclick=\"switchTab('politics')\">US Politics</button>
+        <button class=\"tab-btn\" onclick=\"switchTab('world')\">World Intelligence</button>
+        <button class=\"tab-btn\" onclick=\"switchTab('mideast')\">Middle East War</button>
+    </div>
+
+    <div class=\"container\">
+        <!-- MORNING NEWS TAB -->
+        <div id=\"morning\" class=\"tab-content active\">
+            <div class=\"card morning\">
+                <h3>Global Headlines</h3>
+                <p>King Charles III completed historic address to US Congress, emphasizing UK-US alliance. UAE announced withdrawal from OPEC amid energy crisis. Sudan Darfur crisis worsens with children facing humanitarian catastrophe. Russian-German tensions escalating with fighter jets scrambled on NATO border.</p>
+            </div>
+            <div class=\"card morning\">
+                <h3>Australia/Brisbane News</h3>
+                <p>Brisbane property market surging with values at all-time highs (median $1.08M+). Government housing incentives fueling intense buyer competition. Aviation network under sustained pressure from Strait of Hormuz fuel crisis. Rail infrastructure improvements continuing across Queensland.</p>
+            </div>
+            <div class=\"card morning\">
+                <h3>Sport Highlights</h3>
+                <p>NBA Playoffs: Knicks defeat Hawks 3-2 series lead; Spurs advance over Trail Blazers. MLB season underway: Yankees-Rangers matchups ongoing. India wins 4 gold medals at Commonwealth Youth Weightlifting Championships. Nelly Kord dominates LPGA Championship with historic performance.</p>
+            </div>
+            <div class=\"card morning\">
+                <h3>Brisbane Weather</h3>
+                <p>Autumn conditions in Brisbane, early morning temperatures around 18-22°C. Humidity moderate with scattered rain possible. UV index rising mid-morning. Planning advisable for transport disruptions due to aviation fuel costs.</p>
+            </div>
+            <div class=\"card morning\">
+                <h3>Market Indicators</h3>
+                <p><strong>S&P 500:</strong> -0.49% to 7,138.80 | <strong>Nasdaq:</strong> -0.90% to 24,663.80 | <strong>Dow:</strong> -0.05% to 49,141.93. Tech sector weakness leads decline; OpenAI revenue miss triggers sector rotation. Brent Crude: $112.70/barrel (highest since Mar 31). Geopolitical tension and energy concerns pressuring markets ahead of earnings season.</p>
+            </div>
+            <div class=\"card morning\">
+                <h3>Global Instability Heat Map</h3>
+                <p><span class=\"status-red\">CRITICAL:</span> Middle East (Iran-US War, Hormuz blockade). <span class=\"status-orange\">HIGH:</span> Sudan (Darfur), Colombia (election violence), Lebanon (ceasefire strain). <span class=\"status-yellow\">ELEVATED:</span> Ukraine, Cuba-US tensions, South Korea political unrest. Regional cascades possible if Strait reopening fails.</p>
+            </div>
+        </div>
+
+        <!-- US POLITICS TAB -->
+        <div id=\"politics\" class=\"tab-content\">
+            <div class=\"card politics\">
+                <h3>Trump Activity - Diplomatic Stalemate</h3>
+                <p>Trump cancelled Witkoff/Kushner Pakistan trip, citing \"infighting\" in Iran. Threatens Iran to \"get smart soon\" on negotiations. State dinner with King Charles hosted at White House. Met with national security team on Iran stalemate. Claims Iranian economy \"in collapse\" despite no direct evidence.</p>
+            </div>
+            <div class=\"card politics\">
+                <h3>Legal/Scandal Developments</h3>
+                <p>Cole Tomas Allen charged with attempted assassination after White House Correspondents' Dinner shooting (April 25). Suspect left 1,000-word manifesto targeting Trump administration. One Secret Service officer wounded and recovered. Trump used incident to push White House ballroom construction plans citing \"security needs.\"</p>
+            </div>
+            <div class=\"card politics\">
+                <h3>Republican Dynamics</h3>
+                <p>GOP unified behind Trump despite war criticism from right-wing commentators. Senate Republicans (Collins, Rounds) demanding War Powers Act congressional approval deadline (end of week). Republican midterm strategy focuses on Afghanistan withdrawal legacy narrative reversal. Marco Rubio (State) and Pete Hegseth (Defense) managing Iran policy from within administration.</p>
+            </div>
+            <div class=\"card politics\">
+                <h3>Democrat/Opposition Actions</h3>
+                <p>Democrats criticize \"political violence normalization\" narrative. Rep. Ro Khanna challenges King Charles speech omission of Epstein survivors. Concerns mount over DACA deportation easements by Justice Dept. Democratic party largely sidelined during war crisis; opposition focuses on economic impact domestically.</p>
+            </div>
+            <div class=\"card politics\">
+                <h3>2026 Midterm Developments</h3>
+                <p>Florida Gov. DeSantis unveils new congressional map creating 4 GOP-leaning seats. Midterm dynamics shifting toward war/economy focus. Trump approval at historic low 33% with war support at 32%. May 2026 Colombian election becomes test case for US geopolitical influence. November 2026 midterms dominated by Iran war fallout and inflation concerns.</p>
+            </div>
+            <div class=\"card politics\">
+                <h3>Polling Trends & Stability Gauges</h3>
+                <p><strong>Trump Approval:</strong> 33% (record low), war support 32%, economy handling 30%. <strong>Cost of Living:</strong> Only 22% approve Trump's performance. <strong>Iran War Popularity:</strong> Unpopular even among GOP voters. <strong>Political Violence Concern:</strong> Rising; stabilization critical for November 2026 congressional control.</p>
+            </div>
+        </div>
+
+        <!-- WORLD INTELLIGENCE TAB -->
+        <div id=\"world\" class=\"tab-content\">
+            <div class=\"card world\">
+                <h3>Geopolitical Developments</h3>
+                <p>Iran-US ceasefire extended indefinitely but stalled on fundamentals. Pakistan mediating but progress minimal. Russia-Germany tensions escalate; fighter jets scrambled on NATO border. Colombia faces election violence from FARC dissident groups. Saudi Arabia cutting production amid shipping chaos; UAE positioned to quit OPEC. China and Russia veto UN Hormuz resolution.</p>
+            </div>
+            <div class=\"card world\">
+                <h3>Diplomatic Shifts</h3>
+                <p>Iran's FM Araghchi meets Putin in Moscow, seeks Russian support. Pakistan hosting mediation efforts despite US team cancellation. UK-US alliance reinforced via King Charles visit and state dinner. German Chancellor Merz criticizes US as \"humiliated\" by Iran. UN Secretary-General warns of global food emergency from energy crisis. BRICS leveraging disruption; India and South Africa positioned as swing actors.</p>
+            </div>
+            <div class=\"card world\">
+                <h3>Economic & Market Changes</h3>
+                <p>IMF projects global growth at 3.1% (2026) amid conflict shock. Brent Crude volatility high ($112.70/barrel); potential $125 if blockade continues. Energy inflation spreading to commodity importers, 45M at risk of food insecurity. AI investment momentum cooling; OpenAI revenue miss triggers tech sector repricing. Japanese and South Korean central banks raising inflation forecasts due to energy costs.</p>
+            </div>
+            <div class=\"card world\">
+                <h3>Science & Technology</h3>
+                <p>Archaeologists use AI to reconstruct Vesuvius victim face (AD 79 eruption). GPT-5.5 and DeepSeek V4 advance AI compute race between US and China. Google invests $40B in Anthropic, intensifying AI infrastructure arms race. Fusion energy development continues amid climate summit discussions. Chornobyl nuclear site surveillance upgraded. Robotics and autonomous vehicles gaining traction despite geopolitical disruptions.</p>
+            </div>
+        </div>
+
+        <!-- MIDDLE EAST WAR TAB -->
+        <div id=\"mideast\" class=\"tab-content\">
+            <div class=\"casualty-counter\">
+                <strong>Confirmed Casualties (Estimates):</strong> Lebanon strikes 2,500+ killed, 7,750+ wounded. Gaza election ongoing amid ceasefire ambiguity. Palestine civilian toll mounting. Iranian military infrastructure degraded. Yemeni Houthis controlled escalation posture. Total regional: 60+ day toll estimated 5,000-10,000+ civilian/military combined.
+            </div>
+
+            <div class=\"card mideast\">
+                <h3>Battlefield Developments - Lebanon</h3>
+                <p>Israeli strikes kill 10+ daily despite ceasefire extension. IDF destroys Hezbollah underground tunnels mirroring Gaza operations. Israel issues new evacuation orders southern Lebanon; 600K+ displaced. Ceasefire strain visible; both sides exchange accusations. Lebanon health ministry reports 2,509+ killed since March 2. France and Germany expressing diplomatic frustration.</p>
+            </div>
+
+            <div class=\"card mideast\">
+                <h3>Battlefield Developments - Iran/Gaza</h3>
+                <p>Iran-US war enters day 60 with no ceasefire breakthrough. Israeli Air Force continues strikes on Iranian industrial targets; steel exports now banned by Iran. Gaza election (first in two decades) proceeds amid humanitarian collapse. Trump administration signals unwillingness to accept Iranian compromise on Hormuz without nuclear concessions.</p>
+            </div>
+
+            <div class=\"card mideast\">
+                <h3>Regional Actors & Proxies</h3>
+                <p>Hezbollah under strain but maintaining fire capability in south Lebanon. Houthis control Red Sea escalation (controlled, not aggressive). Iraqi PMF conducting 80+ drone/shelling events monthly. Syrian military bases hosting US troops withdrawn Feb 2026. Bahrain and Kuwait arresting Iran supporters. Yemen humanitarian crisis worsening. Proxy networks fragmented but operational.</p>
+            </div>
+
+            <div class=\"card mideast\">
+                <h3>Escalation Indicators</h3>
+                <div class=\"escalation-gauge\">
+                    <strong>Regional Escalation Risk:</strong>
+                    <div class=\"gauge-bar\">
+                        <div class=\"gauge-fill\" style=\"width: 72%;\"></div>
+                    </div>
+                    <small>ELEVATED (72%) - Ceasefire extension nominal; Lebanon strain, nuclear stalemate, proxy activity sustained</small>
+                </div>
+                <div class=\"escalation-gauge\">
+                    <strong>US-Iran Resumption Risk:</strong>
+                    <div class=\"gauge-bar\">
+                        <div class=\"gauge-fill\" style=\"width: 58%;\"></div>
+                    </div>
+                    <small>MODERATE-HIGH (58%) - Trump hesitant on Iran deal; diplomatic channel active but strained</small>
+                </div>
+                <div class=\"escalation-gauge\">
+                    <strong>Global Economic Impact:</strong>
+                    <div class=\"gauge-bar\">
+                        <div class=\"gauge-fill\" style=\"width: 88%;\"></div>
+                    </div>
+                    <small>CRITICAL (88%) - Energy shock structural; food security cascade ongoing</small>
+                </div>
+            </div>
+
+            <div class=\"card mideast\">
+                <h3>Diplomacy Status</h3>
+                <p>Pakistan mediation ongoing; Iranian FM in Muscat and Moscow seeking alternative partnerships. Trump-Iran talks stalled over nuclear enrichment demands vs. Hormuz reopening. Second round Pakistan talks cancelled by US. UN mediation blocked by China/Russia veto. Arab Gulf states divided (UAE exiting OPEC, Saudi cutting production). Israel-Gaza ceasefire talks separate, under strain over Hamas governance.</p>
+            </div>
+
+            <div class=\"card mideast\">
+                <h3>Oil & Energy Impact</h3>
+                <p>Brent Crude at $112.70/barrel; IEA warns of largest disruption in history. US gas prices hit $4.17/gallon. Energy-driven inflation persisting despite ceasefire. Oil supply 95% below pre-war levels through strait. Bypass pipelines handle only 7M bbl/day vs. 20M normal. Energy security reshaping EU-US strategy. Renewable energy transition accelerated by crisis urgency.</p>
+            </div>
+
+            <div class=\"shipping-status\">
+                <h3>Strait of Hormuz Shipping Lane Status</h3>
+                <p><span class=\"status-red\">CRITICALLY CLOSED - 5% NORMAL TRAFFIC</span></p>
+                <p><strong>Vessel Transits:</strong> ~6 ships attempting daily (down from 130+/day pre-war). 2,000+ vessels stranded in Gulf awaiting passage clearance. <strong>Route Status:</strong> Iran-designated alternative corridor via Larak Island active; IMO shipping lane abandoned. <strong>Insurance Premiums:</strong> Up from 0.25% to ~5% of hull value. <strong>Mine Clearance:</strong> US operations ongoing at triple intensity; uncertainty remains re: Iranian mines. <strong>Bottleneck Impact:</strong> Global refineries reporting supply crunch; Asia hardest hit. Bypass pipelines (Iraq-Turkey) reduced capacity. <strong>Forecast:</strong> Reopening contingent on diplomatic breakthrough; insurance and security concerns may persist 6+ months post-resolution.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Classification:</strong> Open Source Intelligence (OSINT) · <strong>Distribution:</strong> Internal Briefing · <strong>Confidence Level:</strong> Medium</p>
+        <p><strong>Created By:</strong> Mark M. · <strong>Timestamp:</strong> 05:00 AEST, April 29, 2026</p>
+        <p style=\"margin-top: 12px; color: #606878;\">Sources: CNN, Al Jazeera, NPR, CBC, Democracy Now, Bloomberg, Reuters, MarineTraffic, IMF, UN, CSIS. Data updated hourly. Next brief: 13:00 AEST.</p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            btns.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
