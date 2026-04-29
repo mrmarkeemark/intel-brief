@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>OSINT Intelligence Brief</title>
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #12161e;
+    --card: #181c27;
+    --border: #252b3b;
+    --morning: #0ea5e9;
+    --morning-dim: #0c3a52;
+    --uspol: #f59e0b;
+    --uspol-dim: #4a3000;
+    --world: #8b5cf6;
+    --world-dim: #2e1a5e;
+    --mideast: #ef4444;
+    --mideast-dim: #4a0f0f;
+    --text: #e2e8f0;
+    --muted: #7d8a9e;
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --orange: #f97316;
+    --blue: #3b82f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+  /* ── HEADER ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-top {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    flex: 1;
+    min-width: 200px;
+  }
+  .brand-mini {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.18em;
+    margin-bottom: 2px;
+  }
+  .brand-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .brand-meta {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.06em;
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+  }
+  .status-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pill {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    border: 1px solid;
+  }
+  .pill-red { color: var(--red); border-color: var(--red); background: rgba(239,68,68,0.1); }
+  .pill-amber { color: var(--amber); border-color: var(--amber); background: rgba(245,158,11,0.1); }
+  .pill-green { color: var(--green); border-color: var(--green); background: rgba(34,197,94,0.1); }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    border-top: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 6px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-transform: uppercase;
+    font-family: inherit;
+  }
+  .tab-btn .icon { font-size: 16px; }
+  .tab-btn.active.morning { color: var(--morning); border-color: var(--morning); }
+  .tab-btn.active.uspol { color: var(--uspol); border-color: var(--uspol); }
+  .tab-btn.active.world { color: var(--world); border-color: var(--world); }
+  .tab-btn.active.mideast { color: var(--mideast); border-color: var(--mideast); }
+
+  /* ── PANELS ── */
+  .panel { display: none; padding: 14px 12px; }
+  .panel.active { display: block; }
+
+  /* ── SECTION HEAD ── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sec-head:first-child { margin-top: 4px; }
+  .sec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .sec-title {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .sec-meta {
+    margin-left: auto;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .card.morning { border-left: 3px solid var(--morning); }
+  .card.uspol { border-left: 3px solid var(--uspol); }
+  .card.world { border-left: 3px solid var(--world); }
+  .card.mideast { border-left: 3px solid var(--mideast); }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px 12px;
+    gap: 10px;
+    user-select: none;
+  }
+  .card-left { flex: 1; min-width: 0; }
+  .card-tag {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+  .tag-morning { background: var(--morning-dim); color: var(--morning); }
+  .tag-uspol { background: var(--uspol-dim); color: var(--uspol); }
+  .tag-world { background: var(--world-dim); color: var(--world); }
+  .tag-mideast { background: var(--mideast-dim); color: var(--mideast); }
+  .tag-breaking { background: #4a0f0f; color: #ef4444; }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .card-preview {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .card-chevron {
+    font-size: 18px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .card-body {
+    display: none;
+    padding: 0 12px 12px;
+    font-size: 12px;
+    color: #b0bad0;
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+  }
+  .card.open .card-body { display: block; padding-top: 10px; }
+  .card.open .card-chevron { transform: rotate(180deg); }
+  .card.open .card-preview { display: none; }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #b0bad0;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .info-box b { color: var(--text); }
+
+  /* ── MARKET TICKER ── */
+  .ticker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+  .tick-cell { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
+  .tick-name { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.05em; }
+  .tick-val { font-size: 16px; font-weight: 700; color: var(--text); }
+  .tick-chg { font-size: 10px; margin-top: 1px; }
+  .chg-up { color: var(--green); }
+  .chg-down { color: var(--red); }
+
+  /* ── WEATHER ── */
+  .weather-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .weather-icon { font-size: 40px; }
+  .weather-temp { font-size: 28px; font-weight: 700; color: var(--text); }
+  .weather-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .weather-detail { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  /* ── SPORT ── */
+  .sport-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sport-icon { font-size: 18px; flex-shrink: 0; }
+  .sport-text { font-size: 12px; color: var(--text); }
+  .sport-sub { font-size: 10px; color: var(--muted); margin-top: 1px; }
+
+  /* ── HEAT MAP ── */
+  .heatmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+  .heat-cell { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 8px 6px; text-align: center; }
+  .heat-name { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.04em; }
+  .heat-lvl { font-size: 18px; }
+  .heat-label { font-size: 9px; margin-top: 2px; font-weight: 700; }
+  .heat-crit { border-color: var(--red); }  .heat-crit .heat-label { color: var(--red); }
+  .heat-high { border-color: var(--orange); }  .heat-high .heat-label { color: var(--orange); }
+  .heat-med  { border-color: var(--amber); }  .heat-med  .heat-label { color: var(--amber); }
+  .heat-low  { border-color: var(--green); }  .heat-low  .heat-label { color: var(--green); }
+
+  /* ── GAUGE ── */
+  .gauge-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+  .gauge-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
+  .gauge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .gauge-label { font-size: 11px; color: var(--text); flex: 0 0 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gauge-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .gauge-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+  .gauge-pct { font-size: 10px; color: var(--muted); flex: 0 0 60px; text-align: right; }
+  .fill-red { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  .fill-amber { background: linear-gradient(90deg, #f59e0b, #d97706); }
+  .fill-green { background: linear-gradient(90deg, #22c55e, #16a34a); }
+  .fill-blue { background: linear-gradient(90deg, #0ea5e9, #0284c7); }
+  .fill-purple { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
+
+  /* ── CASUALTY COUNTER ── */
+  .casualty-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 8px; }
+  .cas-cell { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .cas-label { font-size: 9px; color: var(--muted); text-transform: uppercase; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.05em; }
+  .cas-val { font-size: 20px; font-weight: 800; }
+  .cas-sub { font-size: 9px; color: var(--muted); margin-top: 2px; }
+  .cas-red { color: var(--red); }
+  .cas-orange { color: var(--orange); }
+  .cas-amber { color: var(--amber); }
+  .cas-blue { color: var(--morning); }
+
+  /* ── SHIPPING ── */
+  .ship-grid { display: grid; gap: 6px; margin-bottom: 8px; }
+  .ship-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .ship-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .ship-detail { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .ship-badge {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+    border: 1px solid;
+  }
+  .badge-closed { background: rgba(239,68,68,0.1); color: var(--red); border-color: var(--red); }
+  .badge-partial { background: rgba(249,115,22,0.1); color: var(--orange); border-color: var(--orange); }
+  .badge-open { background: rgba(34,197,94,0.1); color: var(--green); border-color: var(--green); }
+  .badge-watch { background: rgba(245,158,11,0.1); color: var(--amber); border-color: var(--amber); }
+
+  /* ── POLLING ── */
+  .poll-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+  .poll-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
+  .poll-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .poll-party { font-size: 11px; font-weight: 700; flex: 0 0 80px; }
+  .poll-bar { flex: 1; height: 14px; background: var(--border); border-radius: 7px; overflow: hidden; }
+  .poll-fill { height: 100%; border-radius: 7px; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+  .poll-pct { font-size: 9px; font-weight: 700; color: #fff; }
+  .fill-dem { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+  .fill-rep { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  .poll-note { font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    background: #080a0e;
+    border-top: 1px solid var(--border);
+    padding: 6px 14px;
+    font-size: 9px;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    justify-content: space-between;
+    letter-spacing: 0.04em;
+    z-index: 99;
+  }
+  .footer span { white-space: nowrap; }
+  .footer .hl { color: var(--green); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<div class="header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-mini">▸ OSINT DAILY BRIEF</div>
+      <div class="brand-title">Intelligence Report</div>
+      <div class="brand-meta">{{HEADER_META}}</div>
+    </div>
+    <div class="status-pills">
+      <div class="pill {{RISK_PILL_CLASS}}">RISK: {{RISK_LEVEL}}</div>
+      <div class="pill {{STAB_PILL_CLASS}}">STABILITY: {{STAB_LEVEL}}</div>
+      <div class="pill pill-amber">CONF: MEDIUM</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn morning active" onclick="showTab('morning', this)">
+      <span class="icon">🌅</span>MORNING
+    </button>
+    <button class="tab-btn uspol" onclick="showTab('uspol', this)">
+      <span class="icon">🇺🇸</span>US POLITICS
+    </button>
+    <button class="tab-btn world" onclick="showTab('world', this)">
+      <span class="icon">🌐</span>WORLD
+    </button>
+    <button class="tab-btn mideast" onclick="showTab('mideast', this)">
+      <span class="icon">🔥</span>MIDDLE EAST
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════ MORNING ═══════════ -->
+<div class="panel active" id="panel-morning">
+{{MORNING_CONTENT}}
+</div>
+
+<!-- ═══════════ US POLITICS ═══════════ -->
+<div class="panel" id="panel-uspol">
+{{USPOL_CONTENT}}
+</div>
+
+<!-- ═══════════ WORLD ═══════════ -->
+<div class="panel" id="panel-world">
+{{WORLD_CONTENT}}
+</div>
+
+<!-- ═══════════ MIDDLE EAST ═══════════ -->
+<div class="panel" id="panel-mideast">
+{{MIDEAST_CONTENT}}
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="footer">
+  <span><b>CLASSIFICATION:</b> Open Source Intelligence</span>
+  <span><b>DISTRIBUTION:</b> Internal Briefing</span>
+  <span><b>CONFIDENCE:</b> Medium</span>
+  <span><b>BY:</b> Mark M.</span>
+  <span class="hl">{{FOOTER_TIMESTAMP}}</span>
+</div>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  document.addEventListener('click', function(e) {
+    var c = e.target.closest('.card');
+    if (c) c.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
