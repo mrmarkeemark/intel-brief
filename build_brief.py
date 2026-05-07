@@ -84,12 +84,12 @@ def call_claude():
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     
     response = client.messages.create(
-        model="claude-sonnet-4-5",
+        model="claude-haiku-4-5-20251001",
         max_tokens=16000,
         tools=[{
             "type": "web_search_20250305",
             "name": "web_search",
-            "max_uses": 8,
+            "max_uses": 4,
         }],
         messages=[{"role": "user", "content": PROMPT}],
     )
